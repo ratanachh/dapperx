@@ -1,0 +1,20 @@
+<Project>
+
+  <PropertyGroup>
+    <!-- Overridden per-tag by CI via `dotnet pack -p:Version=...`; this is only the local/dev fallback. -->
+    <Version>0.1.0-preview</Version>
+    <Authors>Chhorm Ratana</Authors>
+    <PackageProjectUrl>https://github.com/ratanachh/dapperx</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ratanachh/dapperx</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>dapper;orm;sql;source-generator;data-access</PackageTags>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
+
+    <!-- Only src/ projects opt back into packing; see src/Directory.Build.props -->
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+</Project>

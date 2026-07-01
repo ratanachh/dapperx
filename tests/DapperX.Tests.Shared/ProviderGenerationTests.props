@@ -1,0 +1,14 @@
+<Project>
+  <PropertyGroup>
+    <DefineConstants Condition="'$(DapperXDatabaseProvider)' == 'SqlServer'">$(DefineConstants);DAPPERX_PROVIDER_SQLSERVER</DefineConstants>
+    <DefineConstants Condition="'$(DapperXDatabaseProvider)' == 'PostgreSql'">$(DefineConstants);DAPPERX_PROVIDER_POSTGRESQL</DefineConstants>
+    <DefineConstants Condition="'$(DapperXDatabaseProvider)' == 'MySql'">$(DefineConstants);DAPPERX_PROVIDER_MYSQL</DefineConstants>
+    <DefineConstants Condition="'$(DapperXDatabaseProvider)' == 'Sqlite'">$(DefineConstants);DAPPERX_PROVIDER_SQLITE</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)GeneratedSourceReader.cs" Link="Shared\GeneratedSourceReader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ProviderExpectations.cs" Link="Shared\ProviderExpectations.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Fixtures\**\*.cs" Link="Shared\Fixtures\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="$(MSBuildThisFileDirectory)Generation\**\*.cs" Link="Generation\%(RecursiveDir)%(Filename)%(Extension)" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,106 @@
+=== GET / ===
+GET http://localhost:5000/ -> HTTP 200
+{"message":"DapperX Sample Application","provider":"SqlServer","database":"Docker Compose SQL Server (localhost:14333)","sections":["catalog","users","orders","org","graph","sqlite"]}
+=== GET /demo/sqlite ===
+GET http://localhost:5000/demo/sqlite -> HTTP 200
+{"message":"Default: Docker Compose SQL Server (`docker compose up -d` in samples/DapperX.SampleApp). Set DapperX:DatabaseProvider to Sqlite for in-memory SQLite without Docker.","currentProvider":"SqlServer","connectionSource":"docker-compose"}
+=== POST /demo/catalog (transformer path) ===
+POST http://localhost:5000/demo/catalog -> HTTP 201
+{"id":1,"sku":"SKU-1","name":"Widget","category":"Books","price":19.99,"inStock":true,"status":"Active","encryptedPayload":"secret","createdAt":"0001-01-01T00:00:00","updatedAt":"0001-01-01T00:00:00"}
+=== POST /demo/catalog (second Books item) ===
+POST http://localhost:5000/demo/catalog -> HTTP 201
+(empty body)
+
+=== POST /demo/catalog/batch ===
+POST http://localhost:5000/demo/catalog/batch -> HTTP 200
+[{"id":3,"sku":"SKU-3","name":"Batch A","category":"Electronics","price":29.99,"inStock":true,"status":"Active","encryptedPayload":"","createdAt":"0001-01-01T00:00:00","updatedAt":"0001-01-01T00:00:00"},{"id":4,"sku":"SKU-4","name":"Batch B","category":"Books","price":14.99,"inStock":true,"status":"Active","encryptedPayload":"","createdAt":"0001-01-01T00:00:00","updatedAt":"0001-01-01T00:00:00"}]
+=== GET /demo/catalog ===
+GET http://localhost:5000/demo/catalog -> HTTP 200
+[{"id":1,"sku":"SKU-1","name":"Widget","category":"Books","price":19.99,"inStock":true,"status":"Active","encryptedPayload":"","createdAt":"2026-06-05T06:12:00.7333333","updatedAt":"2026-06-05T06:12:00.7333333"},{"id":2,"sku":"SKU-2","name":"Novel","category":"Books","price":9.99,"inStock":true,"status":"Active","encryptedPayload":"","createdAt":"2026-06-05T06:12:00.7732598","updatedAt":"2026-06-05T06:12:00.7732598"},{"id":3,"sku":"SKU-3","name":"Batch A","category":"Electronics","price":29.99,"inStock":true,"status":"Active","encryptedPayload":"","createdAt":"2026-06-05T06:12:00.8033333","updatedAt":"2026-06-05T06:12:00.8033333"},{"id":4,"sku":"SKU-4","name":"Batch B","category":"Books","price":14.99,"inStock":true,"status":"Active","encryptedPayload":"","createdAt":"2026-06-05T06:12:00.81","updatedAt":"2026-06-05T06:12:00.81"}]
+=== GET /demo/catalog/{id} ===
+GET http://localhost:5000/demo/catalog/1 -> HTTP 200
+{"id":1,"sku":"SKU-1","name":"Widget","category":"Books","price":19.99,"inStock":true,"status":"Active","encryptedPayload":"","createdAt":"2026-06-05T06:12:00.7333333","updatedAt":"2026-06-05T06:12:00.7333333"}
+=== GET /demo/catalog/ids ===
+GET http://localhost:5000/demo/catalog/ids?ids=1&ids=2 -> HTTP 200
+[{"id":1,"sku":"SKU-1","name":"Widget","category":"Books","price":19.99,"inStock":true,"status":"Active","encryptedPayload":"","createdAt":"2026-06-05T06:12:00.7333333","updatedAt":"2026-06-05T06:12:00.7333333"},{"id":2,"sku":"SKU-2","name":"Novel","category":"Books","price":9.99,"inStock":true,"status":"Active","encryptedPayload":"","createdAt":"2026-06-05T06:12:00.7732598","updatedAt":"2026-06-05T06:12:00.7732598"}]
+=== GET /demo/catalog/exists/{id} ===
+GET http://localhost:5000/demo/catalog/exists/1 -> HTTP 200
+{"id":1,"exists":true}
+=== GET /demo/catalog/count ===
+GET http://localhost:5000/demo/catalog/count -> HTTP 200
+{"count":4}
+=== GET /demo/catalog/page ===
+GET http://localhost:5000/demo/catalog/page?page=0&size=10 -> HTTP 200
+{"content":[{"id":1,"sku":"SKU-1","name":"Widget","category":"Books","price":19.99,"inStock":true,"status":"Active","encryptedPayload":"","createdAt":"2026-06-05T06:12:00.7333333","updatedAt":"2026-06-05T06:12:00.7333333"},{"id":2,"sku":"SKU-2","name":"Novel","category":"Books","price":9.99,"inStock":true,"status":"Active","encryptedPayload":"","createdAt":"2026-06-05T06:12:00.7732598","updatedAt":"2026-06-05T06:12:00.7732598"},{"id":3,"sku":"SKU-3","name":"Batch A","category":"Electronics","price":29.99,"inStock":true,"status":"Active","encryptedPayload":"","createdAt":"2026-06-05T06:12:00.8033333","updatedAt":"2026-06-05T06:12:00.8033333"},{"id":4,"sku":"SKU-4","name":"Batch B","category":"Books","price":14.99,"inStock":true,"status":"Active","encryptedPayload":"","createdAt":"2026-06-05T06:12:00.81","updatedAt":"2026-06-05T06:12:00.81"}],"totalElements":4,"pageNumber":0,"pageSize":10,"totalPages":1}
+=== GET /demo/catalog/page/sorted ===
+GET http://localhost:5000/demo/catalog/page/sorted?page=0&size=10 -> HTTP 200
+{"content":[{"id":1,"sku":"SKU-1","name":"Widget","category":"Books","price":19.99,"inStock":true,"status":"Active","encryptedPayload":"","createdAt":"2026-06-05T06:12:00.7333333","updatedAt":"2026-06-05T06:12:00.7333333"},{"id":2,"sku":"SKU-2","name":"Novel","category":"Books","price":9.99,"inStock":true,"status":"Active","encryptedPayload":"","createdAt":"2026-06-05T06:12:00.7732598","updatedAt":"2026-06-05T06:12:00.7732598"},{"id":3,"sku":"SKU-3","name":"Batch A","category":"Electronics","price":29.99,"inStock":true,"status":"Active","encryptedPayload":"","createdAt":"2026-06-05T06:12:00.8033333","updatedAt":"2026-06-05T06:12:00.8033333"},{"id":4,"sku":"SKU-4","name":"Batch B","category":"Books","price":14.99,"inStock":true,"status":"Active","encryptedPayload":"","createdAt":"2026-06-05T06:12:00.81","updatedAt":"2026-06-05T06:12:00.81"}],"totalElements":4,"pageNumber":0,"pageSize":10,"totalPages":1}
+=== GET /demo/catalog/slice ===
+GET http://localhost:5000/demo/catalog/slice?page=0&size=10 -> HTTP 200
+{"hasNext":false,"items":[{"id":1,"sku":"SKU-1","name":"Widget","category":"Books","price":19.99,"inStock":true,"status":"Active","encryptedPayload":"","createdAt":"2026-06-05T06:12:00.7333333","updatedAt":"2026-06-05T06:12:00.7333333"},{"id":2,"sku":"SKU-2","name":"Novel","category":"Books","price":9.99,"inStock":true,"status":"Active","encryptedPayload":"","createdAt":"2026-06-05T06:12:00.7732598","updatedAt":"2026-06-05T06:12:00.7732598"},{"id":3,"sku":"SKU-3","name":"Batch A","category":"Electronics","price":29.99,"inStock":true,"status":"Active","encryptedPayload":"","createdAt":"2026-06-05T06:12:00.8033333","updatedAt":"2026-06-05T06:12:00.8033333"},{"id":4,"sku":"SKU-4","name":"Batch B","category":"Books","price":14.99,"inStock":true,"status":"Active","encryptedPayload":"","createdAt":"2026-06-05T06:12:00.81","updatedAt":"2026-06-05T06:12:00.81"}]}
+=== GET /demo/catalog/derived/in-stock-cheap ===
+GET http://localhost:5000/demo/catalog/derived/in-stock-cheap?maxPrice=50 -> HTTP 200
+[{"id":1,"sku":"SKU-1","name":"Widget","category":"Books","price":19.99,"inStock":true,"status":"Active","encryptedPayload":"","createdAt":"2026-06-05T06:12:00.7333333","updatedAt":"2026-06-05T06:12:00.7333333"},{"id":2,"sku":"SKU-2","name":"Novel","category":"Books","price":9.99,"inStock":true,"status":"Active","encryptedPayload":"","createdAt":"2026-06-05T06:12:00.7732598","updatedAt":"2026-06-05T06:12:00.7732598"},{"id":3,"sku":"SKU-3","name":"Batch A","category":"Electronics","price":29.99,"inStock":true,"status":"Active","encryptedPayload":"","createdAt":"2026-06-05T06:12:00.8033333","updatedAt":"2026-06-05T06:12:00.8033333"},{"id":4,"sku":"SKU-4","name":"Batch B","category":"Books","price":14.99,"inStock":true,"status":"Active","encryptedPayload":"","createdAt":"2026-06-05T06:12:00.81","updatedAt":"2026-06-05T06:12:00.81"}]
+=== GET /demo/catalog/derived/by-category-sorted ===
+GET http://localhost:5000/demo/catalog/derived/by-category-sorted?category=Books -> HTTP 200
+[{"id":1,"sku":"SKU-1","name":"Widget","category":"Books","price":19.99,"inStock":true,"status":"Active","encryptedPayload":"","createdAt":"2026-06-05T06:12:00.7333333","updatedAt":"2026-06-05T06:12:00.7333333"},{"id":4,"sku":"SKU-4","name":"Batch B","category":"Books","price":14.99,"inStock":true,"status":"Active","encryptedPayload":"","createdAt":"2026-06-05T06:12:00.81","updatedAt":"2026-06-05T06:12:00.81"},{"id":2,"sku":"SKU-2","name":"Novel","category":"Books","price":9.99,"inStock":true,"status":"Active","encryptedPayload":"","createdAt":"2026-06-05T06:12:00.7732598","updatedAt":"2026-06-05T06:12:00.7732598"}]
+=== GET /demo/catalog/derived/slice/{category} ===
+GET http://localhost:5000/demo/catalog/derived/slice/Books?page=0&size=10 -> HTTP 200
+{"hasNext":false,"items":[{"id":1,"sku":"SKU-1","name":"Widget","category":"Books","price":19.99,"inStock":true,"status":"Active","encryptedPayload":"","createdAt":"2026-06-05T06:12:00.7333333","updatedAt":"2026-06-05T06:12:00.7333333"},{"id":2,"sku":"SKU-2","name":"Novel","category":"Books","price":9.99,"inStock":true,"status":"Active","encryptedPayload":"","createdAt":"2026-06-05T06:12:00.7732598","updatedAt":"2026-06-05T06:12:00.7732598"},{"id":3,"sku":"SKU-3","name":"Batch A","category":"Electronics","price":29.99,"inStock":true,"status":"Active","encryptedPayload":"","createdAt":"2026-06-05T06:12:00.8033333","updatedAt":"2026-06-05T06:12:00.8033333"},{"id":4,"sku":"SKU-4","name":"Batch B","category":"Books","price":14.99,"inStock":true,"status":"Active","encryptedPayload":"","createdAt":"2026-06-05T06:12:00.81","updatedAt":"2026-06-05T06:12:00.81"}]}
+=== POST /demo/catalog/lock-read/{category} ===
+POST http://localhost:5000/demo/catalog/lock-read/Books -> HTTP 200
+[{"id":1,"sku":"SKU-1","name":"Widget","category":"Books","price":19.99,"inStock":true,"status":"Active","encryptedPayload":"","createdAt":"2026-06-05T06:12:00.7333333","updatedAt":"2026-06-05T06:12:00.7333333"},{"id":2,"sku":"SKU-2","name":"Novel","category":"Books","price":9.99,"inStock":true,"status":"Active","encryptedPayload":"","createdAt":"2026-06-05T06:12:00.7732598","updatedAt":"2026-06-05T06:12:00.7732598"},{"id":4,"sku":"SKU-4","name":"Batch B","category":"Books","price":14.99,"inStock":true,"status":"Active","encryptedPayload":"","createdAt":"2026-06-05T06:12:00.81","updatedAt":"2026-06-05T06:12:00.81"}]
+=== POST /demo/catalog/lock-update/{category} ===
+POST http://localhost:5000/demo/catalog/lock-update/Books -> HTTP 200
+[{"id":1,"sku":"SKU-1","name":"Widget","category":"Books","price":19.99,"inStock":true,"status":"Active","encryptedPayload":"","createdAt":"2026-06-05T06:12:00.7333333","updatedAt":"2026-06-05T06:12:00.7333333"},{"id":2,"sku":"SKU-2","name":"Novel","category":"Books","price":9.99,"inStock":true,"status":"Active","encryptedPayload":"","createdAt":"2026-06-05T06:12:00.7732598","updatedAt":"2026-06-05T06:12:00.7732598"},{"id":4,"sku":"SKU-4","name":"Batch B","category":"Books","price":14.99,"inStock":true,"status":"Active","encryptedPayload":"","createdAt":"2026-06-05T06:12:00.81","updatedAt":"2026-06-05T06:12:00.81"}]
+=== PUT /demo/catalog/{id} ===
+PUT http://localhost:5000/demo/catalog/1 -> HTTP 204
+(empty body)
+
+=== DELETE /demo/catalog/bulk ===
+DELETE http://localhost:5000/demo/catalog/bulk?ids=2 -> HTTP 204
+(empty body)
+
+=== DELETE /demo/catalog/{id} ===
+DELETE http://localhost:5000/demo/catalog/1 -> HTTP 204
+(empty body)
+
+=== POST /demo/users ===
+POST http://localhost:5000/demo/users -> HTTP 201
+{"id":1,"email":"demo@example.com","region":"US","addressCity":"NYC","addressCountry":"US","tenantId":"aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee","isDeleted":false,"createdAt":"0001-01-01T00:00:00","modifiedAt":"0001-01-01T00:00:00","createdBy":"sample-app","modifiedBy":"sample-app","rowVersion":0,"dbCreatedAt":"0001-01-01T00:00:00"}
+=== GET /demo/users ===
+GET http://localhost:5000/demo/users -> HTTP 200
+[{"id":1,"email":"demo@example.com","region":"US","addressCity":"NYC","addressCountry":"US","tenantId":"aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee","isDeleted":false,"createdAt":"2026-06-05T06:12:01.11","modifiedAt":"2026-06-05T06:12:01.11","createdBy":"sample-app","modifiedBy":"sample-app","rowVersion":0,"dbCreatedAt":"2026-06-05T06:12:01.1115325"}]
+=== GET /demo/users/{id}/profile ===
+GET http://localhost:5000/demo/users/1/profile -> HTTP 200
+{"id":1,"displayName":"demo@example.com"}
+=== GET /demo/users/listener-count ===
+GET http://localhost:5000/demo/users/listener-count -> HTTP 200
+{"prePersistCount":0}
+=== GET /demo/users/include-deleted ===
+GET http://localhost:5000/demo/users/include-deleted -> HTTP 200
+[{"id":1,"email":"demo@example.com","region":"US","addressCity":"NYC","addressCountry":"US","tenantId":"aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee","isDeleted":false,"createdAt":"2026-06-05T06:12:01.11","modifiedAt":"2026-06-05T06:12:01.11","createdBy":"sample-app","modifiedBy":"sample-app","rowVersion":0,"dbCreatedAt":"2026-06-05T06:12:01.1115325"}]
+=== DELETE /demo/users/{id} ===
+DELETE http://localhost:5000/demo/users/1 -> HTTP 200
+{"softDeleted":true}
+=== POST /demo/members ===
+POST http://localhost:5000/demo/members -> HTTP 201
+{"id":1,"email":"member@example.com","bio":"Hello"}
+=== GET /demo/members/{id} ===
+GET http://localhost:5000/demo/members/1 -> HTTP 200
+{"id":1,"email":"member@example.com","bio":"Hello"}
+=== POST /demo/orders ===
+POST http://localhost:5000/demo/orders -> HTTP 201
+{"id":1,"code":"ORD-001","totalWithTax":0,"lineCount":0,"lines":{"isLoaded":false}}
+=== GET /demo/orders/{id} ===
+GET http://localhost:5000/demo/orders/1 -> HTTP 200
+{"id":1,"code":"ORD-001","totalWithTax":0.00,"lineCount":0,"lines":{"isLoaded":false}}
+=== POST /demo/org/departments ===
+POST http://localhost:5000/demo/org/departments -> HTTP 201
+{"id":1,"name":"Engineering","employeesByCode":{"isLoaded":false}}
+=== GET /demo/org/departments/{id}/employees ===
+GET http://localhost:5000/demo/org/departments/1/employees -> HTTP 200
+[]
+=== POST /demo/graph ===
+POST http://localhost:5000/demo/graph -> HTTP 200
+{"id":1,"name":"Parent","children":{"isLoaded":true}}

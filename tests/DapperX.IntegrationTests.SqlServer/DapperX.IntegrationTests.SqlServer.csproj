@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <DapperXDatabaseProvider>SqlServer</DapperXDatabaseProvider>
+  </PropertyGroup>
+  <Import Project="..\DapperX.IntegrationTests.ProviderTestProject.props" />
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="6.0.1" />
+    <PackageReference Include="Testcontainers.MsSql" Version="4.8.0" />
+  </ItemGroup>
+</Project>

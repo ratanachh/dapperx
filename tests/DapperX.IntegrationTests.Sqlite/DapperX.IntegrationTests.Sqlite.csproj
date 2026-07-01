@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <DapperXDatabaseProvider>Sqlite</DapperXDatabaseProvider>
+  </PropertyGroup>
+  <Import Project="..\DapperX.IntegrationTests.ProviderTestProject.props" />
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="9.0.0" />
+  </ItemGroup>
+  <!-- IntegrationEnvironment + scenarios linked via ProviderTestProject.props -->
+</Project>

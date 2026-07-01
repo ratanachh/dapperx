@@ -1,0 +1,9 @@
+<Project>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Scenarios\**\*.cs" Link="Scenarios\%(RecursiveDir)%(Filename)%(Extension)" />
+    <Compile Include="$(MSBuildThisFileDirectory)IntegrationEnvironment.cs" Link="IntegrationEnvironment.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SqliteGuidTypeHandler.cs" Link="SqliteGuidTypeHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DatabaseBootstrap.cs" Link="DatabaseBootstrap.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IntegrationProcedureBootstrap.cs" Link="IntegrationProcedureBootstrap.cs" />
+  </ItemGroup>
+</Project>

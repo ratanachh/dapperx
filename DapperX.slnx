@@ -1,0 +1,28 @@
+<Solution>
+  <Folder Name="/samples/">
+    <Project Path="samples/DapperX.SampleApp/DapperX.SampleApp.csproj" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/DapperX.Abstractions/DapperX.Abstractions.csproj" />
+    <Project Path="src/DapperX.Batching/DapperX.Batching.csproj" />
+    <Project Path="src/DapperX.Core/DapperX.Core.csproj" />
+    <Project Path="src/DapperX.Generator/DapperX.Generator.csproj" />
+    <Project Path="src/DapperX.Lifecycle/DapperX.Lifecycle.csproj" />
+    <Project Path="src/DapperX.Provider/DapperX.Provider.csproj" />
+    <Project Path="src/DapperX.Query/DapperX.Query.csproj" />
+    <Project Path="src/DapperX.Relations/DapperX.Relations.csproj" />
+    <Project Path="src/DapperX.Runtime/DapperX.Runtime.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/DapperX.Tests/DapperX.Tests.csproj" />
+    <Project Path="tests/DapperX.Tests.PostgreSql/DapperX.Tests.PostgreSql.csproj" />
+    <Project Path="tests/DapperX.Tests.MySql/DapperX.Tests.MySql.csproj" />
+    <Project Path="tests/DapperX.Tests.Sqlite/DapperX.Tests.Sqlite.csproj" />
+    <Project Path="tests/DapperX.IntegrationTests.Shared/DapperX.IntegrationTests.Shared.csproj" />
+    <Project Path="tests/DapperX.IntegrationTests.SqlServer/DapperX.IntegrationTests.SqlServer.csproj" />
+    <Project Path="tests/DapperX.IntegrationTests.PostgreSql/DapperX.IntegrationTests.PostgreSql.csproj" />
+    <Project Path="tests/DapperX.IntegrationTests.MySql/DapperX.IntegrationTests.MySql.csproj" />
+    <Project Path="tests/DapperX.IntegrationTests.Sqlite/DapperX.IntegrationTests.Sqlite.csproj" />
+    <Project Path="tests/DapperX.Performance.Tests/DapperX.Performance.Tests.csproj" />
+  </Folder>
+</Solution>
