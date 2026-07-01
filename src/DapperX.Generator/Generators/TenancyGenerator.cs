@@ -143,7 +143,7 @@ internal static class TenancyGenerator
             SoftDeleteBypassHelper.EmitBaseSqlVariable(sb, entity, "SelectById");
         var sqlExpr = SoftDeleteBypassHelper.HasSoftDelete(entity) ? "baseSql" : "SelectByIdSql";
         EntityQueryEmitter.EmitQueryFirstOrDefaultAsync(sb, entity, entityFqn,
-            sqlExpr, $"new {{ {ParameterBindingHelper.IdAssignment(entity)}{TenantParamSuffix(entity)} }}", "transaction");
+            sqlExpr, $"new {{ {ParameterBindingHelper.IdAssignment(entity)}{TenantParamSuffix(entity)} }}", "transaction", emitLogContext: true);
         sb.AppendLine("        ApplyPostLoad(result);");
         sb.AppendLine("        return result;");
         sb.AppendLine("    }");
@@ -159,7 +159,7 @@ internal static class TenancyGenerator
             SoftDeleteBypassHelper.EmitBaseSqlVariable(sb, entity, "SelectAll");
         var sqlExpr = SoftDeleteBypassHelper.HasSoftDelete(entity) ? "baseSql" : "SelectAllSql";
         EntityQueryEmitter.EmitQueryAsyncEnumerable(sb, entity, entityFqn,
-            sqlExpr, TenantOnlyParams(entity), "transaction");
+            sqlExpr, TenantOnlyParams(entity), "transaction", emitLogContext: true);
         sb.AppendLine("        ApplyPostLoad(results);");
         sb.AppendLine("        return results;");
         sb.AppendLine("    }");
@@ -176,7 +176,7 @@ internal static class TenancyGenerator
         var selectExpr = SoftDeleteBypassHelper.HasSoftDelete(entity) ? "baseSql" : "SelectAllSql";
         sb.AppendLine($"        var sql = {selectExpr} + GetSortFragment(sort);");
         EntityQueryEmitter.EmitQueryAsyncEnumerable(sb, entity, entityFqn,
-            "sql", TenantOnlyParams(entity), "transaction");
+            "sql", TenantOnlyParams(entity), "transaction", emitLogContext: true);
         sb.AppendLine("        ApplyPostLoad(results);");
         sb.AppendLine("        return results;");
         sb.AppendLine("    }");
@@ -191,12 +191,12 @@ internal static class TenancyGenerator
         if (SoftDeleteBypassHelper.HasSoftDelete(entity))
             SoftDeleteBypassHelper.EmitBaseSqlVariable(sb, entity, "CountPage", "countBase");
         var countExpr = SoftDeleteBypassHelper.HasSoftDelete(entity) ? "countBase" : "CountPageSql";
-        sb.AppendLine($"        var total = await DbExecutor.ExecuteScalarAsync<long>(_connection, {countExpr}, {TenantOnlyParams(entity)}, transaction);");
+        sb.AppendLine($"        var total = await DbExecutor.ExecuteScalarAsync<long>(_connection, {countExpr}, {TenantOnlyParams(entity)}, transaction{DbExecutorEmission.LogContextSuffix});");
         if (SoftDeleteBypassHelper.HasSoftDelete(entity))
             SoftDeleteBypassHelper.EmitBaseSqlVariable(sb, entity, "SelectAllPage", "pageBase");
         var pageExpr = SoftDeleteBypassHelper.HasSoftDelete(entity) ? "pageBase" : "SelectAllPageSql";
         EntityQueryEmitter.EmitQueryAsyncToList(sb, entity, entityFqn,
-            pageExpr, $"new {{ offset = pageable.Offset, pageSize = pageable.PageSize{TenantParamSuffix(entity)} }}", "transaction", "content");
+            pageExpr, $"new {{ offset = pageable.Offset, pageSize = pageable.PageSize{TenantParamSuffix(entity)} }}", "transaction", "content", emitLogContext: true);
         sb.AppendLine("        ApplyPostLoad(content);");
         sb.AppendLine($"        return new Page<{entityFqn}>(content, total, pageable);");
         sb.AppendLine("    }");
@@ -211,13 +211,13 @@ internal static class TenancyGenerator
         if (SoftDeleteBypassHelper.HasSoftDelete(entity))
             SoftDeleteBypassHelper.EmitBaseSqlVariable(sb, entity, "CountPage", "countBase");
         var countExpr = SoftDeleteBypassHelper.HasSoftDelete(entity) ? "countBase" : "CountPageSql";
-        sb.AppendLine($"        var total = await DbExecutor.ExecuteScalarAsync<long>(_connection, {countExpr}, {TenantOnlyParams(entity)}, transaction);");
+        sb.AppendLine($"        var total = await DbExecutor.ExecuteScalarAsync<long>(_connection, {countExpr}, {TenantOnlyParams(entity)}, transaction{DbExecutorEmission.LogContextSuffix});");
         if (SoftDeleteBypassHelper.HasSoftDelete(entity))
             SoftDeleteBypassHelper.EmitBaseSqlVariable(sb, entity, "SelectAllPage", "pageBase");
         var pageBase = SoftDeleteBypassHelper.HasSoftDelete(entity) ? "pageBase" : "SelectAllPageSql";
         sb.AppendLine($"        var pageSql = {pageBase} + GetSortFragment(sort);");
         EntityQueryEmitter.EmitQueryAsyncToList(sb, entity, entityFqn,
-            "pageSql", $"new {{ offset = pageable.Offset, pageSize = pageable.PageSize{TenantParamSuffix(entity)} }}", "transaction", "content");
+            "pageSql", $"new {{ offset = pageable.Offset, pageSize = pageable.PageSize{TenantParamSuffix(entity)} }}", "transaction", "content", emitLogContext: true);
         sb.AppendLine("        ApplyPostLoad(content);");
         sb.AppendLine($"        return new Page<{entityFqn}>(content, total, pageable);");
         sb.AppendLine("    }");
@@ -233,7 +233,7 @@ internal static class TenancyGenerator
             SoftDeleteBypassHelper.EmitBaseSqlVariable(sb, entity, "SelectAllSlice");
         var sliceExpr = SoftDeleteBypassHelper.HasSoftDelete(entity) ? "baseSql" : "SelectAllSliceSql";
         EntityQueryEmitter.EmitQueryAsyncToList(sb, entity, entityFqn,
-            sliceExpr, $"new {{ offset = pageable.Offset, sliceSize = pageable.PageSize + 1{TenantParamSuffix(entity)} }}", "transaction");
+            sliceExpr, $"new {{ offset = pageable.Offset, sliceSize = pageable.PageSize + 1{TenantParamSuffix(entity)} }}", "transaction", emitLogContext: true);
         sb.AppendLine("        ApplyPostLoad(results);");
         sb.AppendLine($"        return new Slice<{entityFqn}>(results, pageable.PageSize);");
         sb.AppendLine("    }");
@@ -250,7 +250,7 @@ internal static class TenancyGenerator
         var sliceBase = SoftDeleteBypassHelper.HasSoftDelete(entity) ? "baseSql" : "SelectAllSliceSql";
         sb.AppendLine($"        var sql = {sliceBase} + GetSortFragment(sort);");
         EntityQueryEmitter.EmitQueryAsyncToList(sb, entity, entityFqn,
-            "sql", $"new {{ offset = pageable.Offset, sliceSize = pageable.PageSize + 1{TenantParamSuffix(entity)} }}", "transaction");
+            "sql", $"new {{ offset = pageable.Offset, sliceSize = pageable.PageSize + 1{TenantParamSuffix(entity)} }}", "transaction", emitLogContext: true);
         sb.AppendLine("        ApplyPostLoad(results);");
         sb.AppendLine($"        return new Slice<{entityFqn}>(results, pageable.PageSize);");
         sb.AppendLine("    }");
@@ -266,7 +266,7 @@ internal static class TenancyGenerator
             SoftDeleteBypassHelper.EmitBaseSqlVariable(sb, entity, "SelectByIds");
         var sqlExpr = SoftDeleteBypassHelper.HasSoftDelete(entity) ? "baseSql" : "SelectByIdsSql";
         EntityQueryEmitter.EmitQueryAsyncEnumerable(sb, entity, entityFqn,
-            sqlExpr, $"new {{ ids{TenantParamSuffix(entity)} }}", "transaction");
+            sqlExpr, $"new {{ ids{TenantParamSuffix(entity)} }}", "transaction", emitLogContext: true);
         sb.AppendLine("        ApplyPostLoad(results);");
         sb.AppendLine("        return results;");
         sb.AppendLine("    }");
@@ -281,7 +281,7 @@ internal static class TenancyGenerator
         if (SoftDeleteBypassHelper.HasSoftDelete(entity))
             SoftDeleteBypassHelper.EmitBaseSqlVariable(sb, entity, "Exists");
         var sqlExpr = SoftDeleteBypassHelper.HasSoftDelete(entity) ? "baseSql" : "ExistsSql";
-        sb.AppendLine($"        return await DbExecutor.ExecuteScalarAsync<int>(_connection, {sqlExpr}, new {{ {ParameterBindingHelper.IdAssignment(entity)}{TenantParamSuffix(entity)} }}, transaction) == 1;");
+        sb.AppendLine($"        return await DbExecutor.ExecuteScalarAsync<int>(_connection, {sqlExpr}, new {{ {ParameterBindingHelper.IdAssignment(entity)}{TenantParamSuffix(entity)} }}, transaction{DbExecutorEmission.LogContextSuffix}) == 1;");
         sb.AppendLine("    }");
         sb.AppendLine();
     }
@@ -294,7 +294,7 @@ internal static class TenancyGenerator
         if (SoftDeleteBypassHelper.HasSoftDelete(entity))
             SoftDeleteBypassHelper.EmitBaseSqlVariable(sb, entity, "Count");
         var sqlExpr = SoftDeleteBypassHelper.HasSoftDelete(entity) ? "baseSql" : "CountSql";
-        sb.AppendLine($"        return await DbExecutor.ExecuteScalarAsync<long>(_connection, {sqlExpr}, {TenantOnlyParams(entity)}, transaction);");
+        sb.AppendLine($"        return await DbExecutor.ExecuteScalarAsync<long>(_connection, {sqlExpr}, {TenantOnlyParams(entity)}, transaction{DbExecutorEmission.LogContextSuffix});");
         sb.AppendLine("    }");
         sb.AppendLine();
     }

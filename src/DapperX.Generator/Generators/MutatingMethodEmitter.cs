@@ -135,14 +135,14 @@ internal static class MutatingMethodEmitter
         var insertParams = EntityQueryEmitter.GetExecuteParameterExpression(entity);
         if (inlineInsertFetch)
         {
-            sb.AppendLine($"        var __insertFetch = await DbExecutor.QueryFirstOrDefaultAsync<GeneratedInsertFetchRow>(_connection, InsertSql, {insertParams}, transaction);");
+            sb.AppendLine($"        var __insertFetch = await DbExecutor.QueryFirstOrDefaultAsync<GeneratedInsertFetchRow>(_connection, InsertSql, {insertParams}, transaction{DbExecutorEmission.LogContextSuffix});");
             sb.AppendLine("        if (__insertFetch is not null)");
             sb.AppendLine("            ApplyGeneratedInsertFetch(entity, __insertFetch);");
             PrimaryKeyJoinColumnGenerator.EmitAssignAfterParentId(sb, entity);
         }
         else if (useIdentity)
         {
-            sb.AppendLine($"        var newId = await DbExecutor.ExecuteScalarAsync<{idType}>(_connection, InsertSql, {insertParams}, transaction);");
+            sb.AppendLine($"        var newId = await DbExecutor.ExecuteScalarAsync<{idType}>(_connection, InsertSql, {insertParams}, transaction{DbExecutorEmission.LogContextSuffix});");
             sb.AppendLine($"        entity.{idProp.PropertyName} = newId;");
             PrimaryKeyJoinColumnGenerator.EmitAssignAfterParentId(sb, entity);
         }

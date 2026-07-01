@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+env:
+  DOTNET_VERSION: '10.0.x'
+  DOTNET_NOLOGO: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+
+jobs:
+  compile-tests:
+    name: Compile + unit/matrix tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Restore
+        run: dotnet restore DapperX.slnx
+
+      - name: Build
+        run: dotnet build DapperX.slnx --no-restore -c Release
+
+      - name: Test (compile-time unit + matrix, no Docker)
+        run: dotnet test DapperX.slnx --no-build -c Release --filter "FullyQualifiedName!~IntegrationTests"
+
+  integration-tests:
+    name: Integration tests (Testcontainers)
+    needs: compile-tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Restore
+        run: dotnet restore DapperX.slnx
+
+      - name: Build
+        run: dotnet build DapperX.slnx --no-restore -c Release
+
+      - name: Test (integration, Docker required for SqlServer/PostgreSql/MySql)
+        run: dotnet test DapperX.slnx --no-build -c Release --filter "FullyQualifiedName~IntegrationTests"

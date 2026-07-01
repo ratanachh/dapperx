@@ -46,7 +46,7 @@ internal static class NamedEntityGraphGenerator
         sb.AppendLine("    {");
         sb.AppendLine("        const string MethodName = \"LoadGraphAsync\";");
         sb.AppendLine("        var sql = ResolveNamedEntityGraphSql(entityGraph);");
-        EntityQueryEmitter.EmitQueryFirstOrDefaultAsync(sb, entity, entityFqn, "sql", "new { Id = id }", "transaction", "__graphEntity");
+        EntityQueryEmitter.EmitQueryFirstOrDefaultAsync(sb, entity, entityFqn, "sql", "new { Id = id }", "transaction", "__graphEntity", emitLogContext: true);
         sb.AppendLine("        return __graphEntity;");
         sb.AppendLine("    }");
         sb.AppendLine();

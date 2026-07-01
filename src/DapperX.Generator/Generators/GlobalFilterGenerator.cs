@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using DapperX.Generator.Emitters;
 using DapperX.Generator.Models;
+using DapperX.Generator.Utils;
 
 /// <summary>Emits runtime append of compile-time FILTER_* constants.</summary>
 internal static class GlobalFilterGenerator
@@ -177,7 +178,7 @@ internal static class GlobalFilterGenerator
         EmitSoftDeleteBase(sb, entity, "SelectById");
         sb.AppendLine($"        var sql = ApplyGlobalFilters({SelectSqlRef(entity, "SelectById")});");
         EntityQueryEmitter.EmitQueryFirstOrDefaultAsync(sb, entity, entityFqn,
-            "sql", ReadParams(entity, "id"), "transaction");
+            "sql", ReadParams(entity, "id"), "transaction", emitLogContext: true);
         sb.AppendLine("        ApplyPostLoad(result);");
         sb.AppendLine("        return result;");
         sb.AppendLine("    }");
@@ -192,7 +193,7 @@ internal static class GlobalFilterGenerator
         EmitSoftDeleteBase(sb, entity, "SelectAll");
         sb.AppendLine($"        var sql = ApplyGlobalFilters({SelectSqlRef(entity, "SelectAll")});");
         EntityQueryEmitter.EmitQueryAsyncEnumerable(sb, entity, entityFqn,
-            "sql", ReadParams(entity, ""), "transaction");
+            "sql", ReadParams(entity, ""), "transaction", emitLogContext: true);
         sb.AppendLine("        ApplyPostLoad(results);");
         sb.AppendLine("        return results;");
         sb.AppendLine("    }");
@@ -207,7 +208,7 @@ internal static class GlobalFilterGenerator
         EmitSoftDeleteBase(sb, entity, "SelectAll");
         sb.AppendLine($"        var sql = ApplyGlobalFilters({SelectSqlRef(entity, "SelectAll")}) + GetSortFragment(sort);");
         EntityQueryEmitter.EmitQueryAsyncEnumerable(sb, entity, entityFqn,
-            "sql", ReadParams(entity, ""), "transaction");
+            "sql", ReadParams(entity, ""), "transaction", emitLogContext: true);
         sb.AppendLine("        ApplyPostLoad(results);");
         sb.AppendLine("        return results;");
         sb.AppendLine("    }");
@@ -223,9 +224,9 @@ internal static class GlobalFilterGenerator
         sb.AppendLine($"        var countSql = ApplyGlobalFilters({SelectSqlRef(entity, "CountPage", "countBase")});");
         EmitSoftDeleteBase(sb, entity, "SelectAllPage", "pageBase");
         sb.AppendLine($"        var pageSql = ApplyGlobalFilters({SelectSqlRef(entity, "SelectAllPage", "pageBase")});");
-        sb.AppendLine($"        var total = await DbExecutor.ExecuteScalarAsync<long>(_connection, countSql, {ReadParams(entity, "")}, transaction);");
+        sb.AppendLine($"        var total = await DbExecutor.ExecuteScalarAsync<long>(_connection, countSql, {ReadParams(entity, "")}, transaction{DbExecutorEmission.LogContextSuffix});");
         EntityQueryEmitter.EmitQueryAsyncToList(sb, entity, entityFqn,
-            "pageSql", ReadParams(entity, "offset = pageable.Offset, pageSize = pageable.PageSize"), "transaction", "content");
+            "pageSql", ReadParams(entity, "offset = pageable.Offset, pageSize = pageable.PageSize"), "transaction", "content", emitLogContext: true);
         sb.AppendLine("        ApplyPostLoad(content);");
         sb.AppendLine($"        return new Page<{entityFqn}>(content, total, pageable);");
         sb.AppendLine("    }");
@@ -241,9 +242,9 @@ internal static class GlobalFilterGenerator
         sb.AppendLine($"        var countSql = ApplyGlobalFilters({SelectSqlRef(entity, "CountPage", "countBase")});");
         EmitSoftDeleteBase(sb, entity, "SelectAllPage", "pageBase");
         sb.AppendLine($"        var pageSql = ApplySortToPagedSql(ApplyGlobalFilters({SelectSqlRef(entity, "SelectAllPage", "pageBase")}), GetSortFragment(sort));");
-        sb.AppendLine($"        var total = await DbExecutor.ExecuteScalarAsync<long>(_connection, countSql, {ReadParams(entity, "")}, transaction);");
+        sb.AppendLine($"        var total = await DbExecutor.ExecuteScalarAsync<long>(_connection, countSql, {ReadParams(entity, "")}, transaction{DbExecutorEmission.LogContextSuffix});");
         EntityQueryEmitter.EmitQueryAsyncToList(sb, entity, entityFqn,
-            "pageSql", ReadParams(entity, "offset = pageable.Offset, pageSize = pageable.PageSize"), "transaction", "content");
+            "pageSql", ReadParams(entity, "offset = pageable.Offset, pageSize = pageable.PageSize"), "transaction", "content", emitLogContext: true);
         sb.AppendLine("        ApplyPostLoad(content);");
         sb.AppendLine($"        return new Page<{entityFqn}>(content, total, pageable);");
         sb.AppendLine("    }");
@@ -258,7 +259,7 @@ internal static class GlobalFilterGenerator
         EmitSoftDeleteBase(sb, entity, "SelectAllSlice");
         sb.AppendLine($"        var sql = ApplyGlobalFilters({SelectSqlRef(entity, "SelectAllSlice")});");
         EntityQueryEmitter.EmitQueryAsyncToList(sb, entity, entityFqn,
-            "sql", ReadParams(entity, "offset = pageable.Offset, sliceSize = pageable.PageSize + 1"), "transaction");
+            "sql", ReadParams(entity, "offset = pageable.Offset, sliceSize = pageable.PageSize + 1"), "transaction", emitLogContext: true);
         sb.AppendLine("        ApplyPostLoad(results);");
         sb.AppendLine($"        return new Slice<{entityFqn}>(results, pageable.PageSize);");
         sb.AppendLine("    }");
@@ -273,7 +274,7 @@ internal static class GlobalFilterGenerator
         EmitSoftDeleteBase(sb, entity, "SelectAllSlice");
         sb.AppendLine($"        var sql = ApplySortToPagedSql(ApplyGlobalFilters({SelectSqlRef(entity, "SelectAllSlice")}), GetSortFragment(sort));");
         EntityQueryEmitter.EmitQueryAsyncToList(sb, entity, entityFqn,
-            "sql", ReadParams(entity, "offset = pageable.Offset, sliceSize = pageable.PageSize + 1"), "transaction");
+            "sql", ReadParams(entity, "offset = pageable.Offset, sliceSize = pageable.PageSize + 1"), "transaction", emitLogContext: true);
         sb.AppendLine("        ApplyPostLoad(results);");
         sb.AppendLine($"        return new Slice<{entityFqn}>(results, pageable.PageSize);");
         sb.AppendLine("    }");
@@ -288,7 +289,7 @@ internal static class GlobalFilterGenerator
         EmitSoftDeleteBase(sb, entity, "SelectByIds");
         sb.AppendLine($"        var sql = ApplyGlobalFilters({SelectSqlRef(entity, "SelectByIds")});");
         EntityQueryEmitter.EmitQueryAsyncEnumerable(sb, entity, entityFqn,
-            "sql", ReadParams(entity, "ids"), "transaction");
+            "sql", ReadParams(entity, "ids"), "transaction", emitLogContext: true);
         sb.AppendLine("        ApplyPostLoad(results);");
         sb.AppendLine("        return results;");
         sb.AppendLine("    }");
@@ -302,7 +303,7 @@ internal static class GlobalFilterGenerator
         sb.AppendLine("        const string MethodName = \"ExistsByIdAsync\";");
         EmitSoftDeleteBase(sb, entity, "Exists");
         sb.AppendLine($"        var sql = ApplyGlobalFilters({SelectSqlRef(entity, "Exists")});");
-        sb.AppendLine($"        return await DbExecutor.ExecuteScalarAsync<int>(_connection, sql, {ReadParams(entity, "id")}, transaction) == 1;");
+        sb.AppendLine($"        return await DbExecutor.ExecuteScalarAsync<int>(_connection, sql, {ReadParams(entity, "id")}, transaction{DbExecutorEmission.LogContextSuffix}) == 1;");
         sb.AppendLine("    }");
         sb.AppendLine();
     }
@@ -314,7 +315,7 @@ internal static class GlobalFilterGenerator
         sb.AppendLine("        const string MethodName = \"CountAsync\";");
         EmitSoftDeleteBase(sb, entity, "Count");
         sb.AppendLine($"        var sql = ApplyGlobalFilters({SelectSqlRef(entity, "Count")});");
-        sb.AppendLine($"        return await DbExecutor.ExecuteScalarAsync<long>(_connection, sql, {ReadParams(entity, "")}, transaction);");
+        sb.AppendLine($"        return await DbExecutor.ExecuteScalarAsync<long>(_connection, sql, {ReadParams(entity, "")}, transaction{DbExecutorEmission.LogContextSuffix});");
         sb.AppendLine("    }");
         sb.AppendLine();
     }

@@ -150,6 +150,7 @@ internal static class GraphGenerator
         sb.AppendLine($"    public override async Task UpdateGraphAsync({entityFqn} root, IDbTransaction? transaction = null, CancellationToken ct = default)");
         sb.AppendLine("    {");
         sb.AppendLine("        const string MethodName = \"UpdateGraphAsync\";");
+        sb.AppendLine("        DapperX.Runtime.Logging.SqlExecutionLogger.TryLogBatchTrace(DbExecutor.CreateLogContext(MethodName, Options, Provider), UpdateSql, 1, 1);");
         sb.AppendLine("        var ownsTransaction = transaction is null;");
         sb.AppendLine("        transaction ??= _connection.BeginTransaction();");
         sb.AppendLine("        try");
@@ -221,6 +222,7 @@ internal static class GraphGenerator
         sb.AppendLine($"    public override async Task DeleteGraphAsync({entityFqn} root, IDbTransaction? transaction = null, CancellationToken ct = default)");
         sb.AppendLine("    {");
         sb.AppendLine("        const string MethodName = \"DeleteGraphAsync\";");
+        sb.AppendLine("        DapperX.Runtime.Logging.SqlExecutionLogger.TryLogBatchTrace(DbExecutor.CreateLogContext(MethodName, Options, Provider), DeleteSql, 1, 1);");
         sb.AppendLine("        var ownsTransaction = transaction is null;");
         sb.AppendLine("        transaction ??= _connection.BeginTransaction();");
         sb.AppendLine("        try");

@@ -54,7 +54,7 @@ public class SecondaryTableTests
         var source = ReadGenerated("DocumentRepositoryImpl.g.cs");
         var insertStart = source.IndexOf("public override async Task InsertAsync", StringComparison.Ordinal);
         Assert.True(insertStart >= 0);
-        var insertBody = source[insertStart..(insertStart + 600)];
+        var insertBody = source[insertStart..(insertStart + 800)];
         Assert.Contains("DbExecutor.ExecuteScalarAsync<int>(_connection, InsertSql", insertBody);
         Assert.Contains("SecondaryInsert_document_details", insertBody);
         Assert.True(insertBody.IndexOf("InsertSql", StringComparison.Ordinal)

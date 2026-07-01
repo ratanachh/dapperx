@@ -3,6 +3,7 @@ namespace DapperX.Generator.Generators;
 using System.Text;
 using DapperX.Generator.Emitters;
 using DapperX.Generator.Models;
+using DapperX.Generator.Utils;
 
 /// <summary>Read overrides with <c>includeDeleted</c> for entities with <c>[SoftDelete]</c> and no tenancy/global-filter overrides.</summary>
 internal static class SoftDeleteReadOverrideGenerator
@@ -27,7 +28,7 @@ internal static class SoftDeleteReadOverrideGenerator
         sb.AppendLine("    {");
         sb.AppendLine("        const string MethodName = \"GetByIdAsync\";");
         SoftDeleteBypassHelper.EmitBaseSqlVariable(sb, entity, "SelectById");
-        EntityQueryEmitter.EmitQueryFirstOrDefaultAsync(sb, entity, entityFqn, "baseSql", "new { Id = id }", "transaction");
+        EntityQueryEmitter.EmitQueryFirstOrDefaultAsync(sb, entity, entityFqn, "baseSql", "new { Id = id }", "transaction", emitLogContext: true);
         sb.AppendLine("        ApplyPostLoad(result);");
         sb.AppendLine("        return result;");
         sb.AppendLine("    }");
@@ -40,7 +41,7 @@ internal static class SoftDeleteReadOverrideGenerator
         sb.AppendLine("    {");
         sb.AppendLine("        const string MethodName = \"GetAllAsync\";");
         SoftDeleteBypassHelper.EmitBaseSqlVariable(sb, entity, "SelectAll");
-        EntityQueryEmitter.EmitQueryAsyncEnumerable(sb, entity, entityFqn, "baseSql", "null", "transaction");
+        EntityQueryEmitter.EmitQueryAsyncEnumerable(sb, entity, entityFqn, "baseSql", "null", "transaction", emitLogContext: true);
         sb.AppendLine("        ApplyPostLoad(results);");
         sb.AppendLine("        return results;");
         sb.AppendLine("    }");
@@ -54,7 +55,7 @@ internal static class SoftDeleteReadOverrideGenerator
         sb.AppendLine("        const string MethodName = \"GetAllAsync\";");
         SoftDeleteBypassHelper.EmitBaseSqlVariable(sb, entity, "SelectAll");
         sb.AppendLine("        var sql = baseSql + GetSortFragment(sort);");
-        EntityQueryEmitter.EmitQueryAsyncEnumerable(sb, entity, entityFqn, "sql", "null", "transaction");
+        EntityQueryEmitter.EmitQueryAsyncEnumerable(sb, entity, entityFqn, "sql", "null", "transaction", emitLogContext: true);
         sb.AppendLine("        ApplyPostLoad(results);");
         sb.AppendLine("        return results;");
         sb.AppendLine("    }");
@@ -67,10 +68,10 @@ internal static class SoftDeleteReadOverrideGenerator
         sb.AppendLine("    {");
         sb.AppendLine("        const string MethodName = \"GetAllAsync\";");
         SoftDeleteBypassHelper.EmitBaseSqlVariable(sb, entity, "CountPage", "countBase");
-        sb.AppendLine("        var total = await DbExecutor.ExecuteScalarAsync<long>(_connection, countBase, null, transaction);");
+        sb.AppendLine($"        var total = await DbExecutor.ExecuteScalarAsync<long>(_connection, countBase, null, transaction{DbExecutorEmission.LogContextSuffix});");
         SoftDeleteBypassHelper.EmitBaseSqlVariable(sb, entity, "SelectAllPage", "pageBase");
         EntityQueryEmitter.EmitQueryAsyncToList(sb, entity, entityFqn,
-            "pageBase", "new { offset = pageable.Offset, pageSize = pageable.PageSize }", "transaction", "content");
+            "pageBase", "new { offset = pageable.Offset, pageSize = pageable.PageSize }", "transaction", "content", emitLogContext: true);
         sb.AppendLine("        ApplyPostLoad(content);");
         sb.AppendLine($"        return new Page<{entityFqn}>(content, total, pageable);");
         sb.AppendLine("    }");
@@ -83,11 +84,11 @@ internal static class SoftDeleteReadOverrideGenerator
         sb.AppendLine("    {");
         sb.AppendLine("        const string MethodName = \"GetAllAsync\";");
         SoftDeleteBypassHelper.EmitBaseSqlVariable(sb, entity, "CountPage", "countBase");
-        sb.AppendLine("        var total = await DbExecutor.ExecuteScalarAsync<long>(_connection, countBase, null, transaction);");
+        sb.AppendLine($"        var total = await DbExecutor.ExecuteScalarAsync<long>(_connection, countBase, null, transaction{DbExecutorEmission.LogContextSuffix});");
         SoftDeleteBypassHelper.EmitBaseSqlVariable(sb, entity, "SelectAllPage", "pageBase");
         sb.AppendLine("        var sql = pageBase + GetSortFragment(sort);");
         EntityQueryEmitter.EmitQueryAsyncToList(sb, entity, entityFqn,
-            "sql", "new { offset = pageable.Offset, pageSize = pageable.PageSize }", "transaction", "content");
+            "sql", "new { offset = pageable.Offset, pageSize = pageable.PageSize }", "transaction", "content", emitLogContext: true);
         sb.AppendLine("        ApplyPostLoad(content);");
         sb.AppendLine($"        return new Page<{entityFqn}>(content, total, pageable);");
         sb.AppendLine("    }");
@@ -101,7 +102,7 @@ internal static class SoftDeleteReadOverrideGenerator
         sb.AppendLine("        const string MethodName = \"GetAllSliceAsync\";");
         SoftDeleteBypassHelper.EmitBaseSqlVariable(sb, entity, "SelectAllSlice");
         EntityQueryEmitter.EmitQueryAsyncToList(sb, entity, entityFqn,
-            "baseSql", "new { offset = pageable.Offset, sliceSize = pageable.PageSize + 1 }", "transaction");
+            "baseSql", "new { offset = pageable.Offset, sliceSize = pageable.PageSize + 1 }", "transaction", emitLogContext: true);
         sb.AppendLine("        ApplyPostLoad(results);");
         sb.AppendLine($"        return new Slice<{entityFqn}>(results, pageable.PageSize);");
         sb.AppendLine("    }");
@@ -116,7 +117,7 @@ internal static class SoftDeleteReadOverrideGenerator
         SoftDeleteBypassHelper.EmitBaseSqlVariable(sb, entity, "SelectAllSlice");
         sb.AppendLine("        var sql = baseSql + GetSortFragment(sort);");
         EntityQueryEmitter.EmitQueryAsyncToList(sb, entity, entityFqn,
-            "sql", "new { offset = pageable.Offset, sliceSize = pageable.PageSize + 1 }", "transaction");
+            "sql", "new { offset = pageable.Offset, sliceSize = pageable.PageSize + 1 }", "transaction", emitLogContext: true);
         sb.AppendLine("        ApplyPostLoad(results);");
         sb.AppendLine($"        return new Slice<{entityFqn}>(results, pageable.PageSize);");
         sb.AppendLine("    }");
@@ -129,7 +130,7 @@ internal static class SoftDeleteReadOverrideGenerator
         sb.AppendLine("    {");
         sb.AppendLine("        const string MethodName = \"FindAllByIdAsync\";");
         SoftDeleteBypassHelper.EmitBaseSqlVariable(sb, entity, "SelectByIds");
-        EntityQueryEmitter.EmitQueryAsyncEnumerable(sb, entity, entityFqn, "baseSql", "new { ids }", "transaction");
+        EntityQueryEmitter.EmitQueryAsyncEnumerable(sb, entity, entityFqn, "baseSql", "new { ids }", "transaction", emitLogContext: true);
         sb.AppendLine("        ApplyPostLoad(results);");
         sb.AppendLine("        return results;");
         sb.AppendLine("    }");
@@ -142,7 +143,7 @@ internal static class SoftDeleteReadOverrideGenerator
         sb.AppendLine("    {");
         sb.AppendLine("        const string MethodName = \"ExistsByIdAsync\";");
         SoftDeleteBypassHelper.EmitBaseSqlVariable(sb, entity, "Exists");
-        sb.AppendLine("        return await DbExecutor.ExecuteScalarAsync<int>(_connection, baseSql, new { Id = id }, transaction) == 1;");
+        sb.AppendLine($"        return await DbExecutor.ExecuteScalarAsync<int>(_connection, baseSql, new {{ Id = id }}, transaction{DbExecutorEmission.LogContextSuffix}) == 1;");
         sb.AppendLine("    }");
         sb.AppendLine();
     }
@@ -153,7 +154,7 @@ internal static class SoftDeleteReadOverrideGenerator
         sb.AppendLine("    {");
         sb.AppendLine("        const string MethodName = \"CountAsync\";");
         SoftDeleteBypassHelper.EmitBaseSqlVariable(sb, entity, "Count");
-        sb.AppendLine("        return await DbExecutor.ExecuteScalarAsync<long>(_connection, baseSql, null, transaction);");
+        sb.AppendLine($"        return await DbExecutor.ExecuteScalarAsync<long>(_connection, baseSql, null, transaction{DbExecutorEmission.LogContextSuffix});");
         sb.AppendLine("    }");
         sb.AppendLine();
     }

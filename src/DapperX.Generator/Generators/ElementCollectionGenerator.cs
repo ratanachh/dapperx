@@ -2,6 +2,7 @@ namespace DapperX.Generator.Generators;
 
 using System.Text;
 using DapperX.Generator.Models;
+using DapperX.Generator.Utils;
 
 internal static class ElementCollectionGenerator
 {
@@ -44,7 +45,7 @@ internal static class ElementCollectionGenerator
         sb.AppendLine("    {");
         sb.AppendLine($"        const string MethodName = \"Load{ec.PropertyName}Async\";");
         sb.AppendLine($"        var parentId = parent.{entity.Properties.First(p => p.IsId).PropertyName};");
-        sb.AppendLine($"        var rows = await DbExecutor.QueryAsync<{elementType}>(_connection, Load{ec.PropertyName}Sql, new {{ parentId }}, transaction);");
+        sb.AppendLine($"        var rows = await DbExecutor.QueryAsync<{elementType}>(_connection, Load{ec.PropertyName}Sql, new {{ parentId }}, transaction{DbExecutorEmission.LogContextSuffix});");
         sb.AppendLine("        return rows.ToList();");
         sb.AppendLine("    }");
         sb.AppendLine();
