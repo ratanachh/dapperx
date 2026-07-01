@@ -38,8 +38,8 @@ internal static class QueryGenerator
             countFrom += eagerJoinSql;
         }
 
-        sb.AppendLine($"    protected const string QueryBaseSql = \"{Esc(baseSql)}\";");
-        sb.AppendLine($"    protected const string QueryCountFromClause = \"{Esc(countFrom)}\";");
+        sb.AppendLine($"    private const string QueryBaseSql = \"{Esc(baseSql)}\";");
+        sb.AppendLine($"    private const string QueryCountFromClause = \"{Esc(countFrom)}\";");
         sb.AppendLine();
 
         EmitProjectionCatalog(sb, projections);
@@ -47,7 +47,7 @@ internal static class QueryGenerator
         EmitIncludeJoinSwitch(sb, entity, allModels);
         EmitSplitIncludeMethods(sb, entity, allModels, provider);
 
-        sb.AppendLine($"    public IQuery<{entity.FullyQualifiedName}> Query()");
+        sb.AppendLine($"    public override IQuery<{entity.FullyQualifiedName}> Query()");
         sb.AppendLine("    {");
         sb.AppendLine($"        var config = new DapperX.Runtime.Query.QueryRuntimeConfig");
         sb.AppendLine("        {");
@@ -182,7 +182,7 @@ internal static class QueryGenerator
             var targetFqn = target.FullyQualifiedName;
             var targetIdProp = target.Properties.First(p => p.IsId);
             var select = SqlBuilder.BuildSelect(target, provider: provider);
-            var fkColumn = rel.ForeignKeyColumn!;
+            var fkColumn = rel.ForeignKeyColumn;
 
             sb.AppendLine($"    private async Task Attach{rel.PropertyName}ForQueryAsync(");
             sb.AppendLine($"        IList<{entity.FullyQualifiedName}> entities, IDbTransaction? transaction)");
@@ -230,7 +230,7 @@ internal static class QueryGenerator
     private static EntityModel? ResolveTargetEntity(RelationshipModel rel, IReadOnlyDictionary<string, EntityModel> allModels)
     {
         var fqn = rel.TargetEntity;
-        if (string.IsNullOrEmpty(fqn)) return null;
+        if (fqn is null || fqn.Length == 0) return null;
         var key = fqn.StartsWith("global::", StringComparison.Ordinal) ? fqn.Substring(8) : fqn;
         if (allModels.TryGetValue(key, out var model)) return model;
         foreach (var m in allModels.Values)
