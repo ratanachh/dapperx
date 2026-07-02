@@ -4,6 +4,9 @@ using DapperX.SampleApp.Infrastructure;
 
 namespace DapperX.SampleApp.Entities;
 
+// DPX013/DPX014 fire unconditionally whenever [CreatedBy]/[LastModifiedBy]/[TenantId] are used — the
+// generator has no way to see that IAuditingProvider and ITenantProvider are registered in Program.cs.
+#pragma warning disable DPX013, DPX014
 [Entity]
 [Table("app_users")]
 [SoftDelete]
@@ -34,3 +37,4 @@ public class AppUser : BaseEntity
     [Column(Name = "is_deleted")]
     public bool IsDeleted { get; set; }
 }
+#pragma warning restore DPX013, DPX014
