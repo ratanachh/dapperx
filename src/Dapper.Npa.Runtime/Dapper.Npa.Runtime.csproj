@@ -20,7 +20,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <InternalsVisibleTo Include="Dapper.NpaTests" />
+    <InternalsVisibleTo Include="Dapper.Npa.Tests" />
   </ItemGroup>
 
 </Project>
