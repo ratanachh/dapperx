@@ -55,8 +55,15 @@ jobs:
       - name: Pack
         run: dotnet pack DapperX.slnx --no-restore -c Release -p:Version=${{ steps.version.outputs.value }} -o ./artifacts
 
-      - name: Push to NuGet.org
-        run: dotnet nuget push "./artifacts/*.nupkg" --api-key "${{ secrets.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
+      - name: Push to NuGet.org    
+        run: |
+          for f in ./artifacts/*.nupkg; do
+            echo "PUSHING: $f"
+            dotnet nuget push "$f" \
+              --api-key "${{ secrets.NUGET_API_KEY }}" \
+              --source https://api.nuget.org/v3/index.json \
+              --skip-duplicate
+          done
 
       - name: Create GitHub Release with package assets
         uses: softprops/action-gh-release@v2
