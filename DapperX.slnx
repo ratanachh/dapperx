@@ -3,15 +3,8 @@
     <Project Path="samples/Dapper.Npa.SampleApp/Dapper.Npa.SampleApp.csproj" />
   </Folder>
   <Folder Name="/src/">
-    <Project Path="src/Dapper.Npa.Abstractions/Dapper.Npa.Abstractions.csproj" />
-    <Project Path="src/Dapper.Npa.Batching/Dapper.Npa.Batching.csproj" />
-    <Project Path="src/Dapper.Npa.Core/Dapper.Npa.Core.csproj" />
+    <Project Path="src/Dapper.Npa/Dapper.Npa.csproj" />
     <Project Path="src/Dapper.Npa.Generator/Dapper.Npa.Generator.csproj" />
-    <Project Path="src/Dapper.Npa.Lifecycle/Dapper.Npa.Lifecycle.csproj" />
-    <Project Path="src/Dapper.Npa.Provider/Dapper.Npa.Provider.csproj" />
-    <Project Path="src/Dapper.Npa.Query/Dapper.Npa.Query.csproj" />
-    <Project Path="src/Dapper.Npa.Relations/Dapper.Npa.Relations.csproj" />
-    <Project Path="src/Dapper.Npa.Runtime/Dapper.Npa.Runtime.csproj" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/Dapper.Npa.Performance.Tests/Dapper.Npa.Performance.Tests.csproj" />

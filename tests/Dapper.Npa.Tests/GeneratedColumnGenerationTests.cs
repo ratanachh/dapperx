@@ -49,7 +49,7 @@ public class GeneratedColumnGenerationTests
         var insertBody = source.Substring(insertStart, updateStart - insertStart);
         Assert.DoesNotContain("GeneratedColumnsReSelectSql", insertBody);
 
-        var updateBody = source.Substring(updateStart, 700);
+        var updateBody = ExtractMethodBody(source, updateStart);
         Assert.Contains("GeneratedColumnsReSelectSql", updateBody);
     }
 
@@ -60,6 +60,21 @@ public class GeneratedColumnGenerationTests
         Assert.Contains(
             "protected override string InsertSql => \"INSERT INTO mapped_generated_items (title) OUTPUT INSERTED.id, INSERTED.created_at VALUES (@Title)\";",
             source);
+    }
+
+    private static string ExtractMethodBody(string source, int methodStart)
+    {
+        var braceStart = source.IndexOf('{', methodStart);
+        Assert.True(braceStart >= 0, "Could not find method body opening brace.");
+        var depth = 0;
+        for (var i = braceStart; i < source.Length; i++)
+        {
+            if (source[i] == '{') depth++;
+            else if (source[i] == '}' && --depth == 0)
+                return source.Substring(methodStart, i - methodStart + 1);
+        }
+
+        throw new InvalidOperationException("Could not find matching closing brace for method body.");
     }
 
     private static string ExtractProtectedOverride(string source, string constantName)

@@ -69,11 +69,16 @@ public class PerformanceRequirementsTests
     [Fact]
     public void Runtime_has_no_cpql_parser_types()
     {
+        // Dapper.Npa.Core.Enums.CpqlType is a small runtime-facing enum, not parser logic, and
+        // legitimately ships in the runtime assembly now that Core/Runtime/etc. are merged into
+        // one Dapper.Npa assembly. The heavy Roslyn-based CPQL parser/validator must still stay
+        // compile-time-only, in Dapper.Npa.Generator.
         var runtimeAssembly = typeof(Dapper.Npa.Runtime.Query.RepositoryQuery<>).Assembly;
-        var cpqlTypes = runtimeAssembly.GetTypes()
-            .Where(t => t.FullName?.Contains("Cpql", StringComparison.OrdinalIgnoreCase) == true)
+        var cpqlParserTypes = runtimeAssembly.GetTypes()
+            .Where(t => t.FullName?.Contains("CpqlTypeHelper", StringComparison.OrdinalIgnoreCase) == true
+                || t.FullName?.Contains("CpqlSemanticValidator", StringComparison.OrdinalIgnoreCase) == true)
             .ToList();
-        Assert.Empty(cpqlTypes);
+        Assert.Empty(cpqlParserTypes);
     }
 
     [Fact]

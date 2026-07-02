@@ -18,7 +18,6 @@
     <Using Include="Xunit" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Dapper.Npa.Abstractions\Dapper.Npa.Abstractions.csproj" />
-    <ProjectReference Include="..\..\src\Dapper.Npa.Runtime\Dapper.Npa.Runtime.csproj" />
+    <ProjectReference Include="..\..\src\Dapper.Npa\Dapper.Npa.csproj" />
   </ItemGroup>
 </Project>

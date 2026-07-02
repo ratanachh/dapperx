@@ -32,13 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Dapper.Npa.Core\Dapper.Npa.Core.csproj" />
-    <ProjectReference Include="..\..\src\Dapper.Npa.Abstractions\Dapper.Npa.Abstractions.csproj" />
-    <ProjectReference Include="..\..\src\Dapper.Npa.Query\Dapper.Npa.Query.csproj" />
-    <ProjectReference Include="..\..\src\Dapper.Npa.Relations\Dapper.Npa.Relations.csproj" />
-    <ProjectReference Include="..\..\src\Dapper.Npa.Runtime\Dapper.Npa.Runtime.csproj" />
-    <ProjectReference Include="..\..\src\Dapper.Npa.Provider\Dapper.Npa.Provider.csproj" />
-    <ProjectReference Include="..\..\src\Dapper.Npa.Lifecycle\Dapper.Npa.Lifecycle.csproj" />
+    <ProjectReference Include="..\..\src\Dapper.Npa\Dapper.Npa.csproj" />
     <ProjectReference Include="..\..\src\Dapper.Npa.Generator\Dapper.Npa.Generator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
     <ProjectReference Include="..\..\src\Dapper.Npa.Generator\Dapper.Npa.Generator.csproj"
                       ReferenceOutputAssembly="true" />

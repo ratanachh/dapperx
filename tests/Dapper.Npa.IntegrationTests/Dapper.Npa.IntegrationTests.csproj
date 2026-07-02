@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Dapper.Npa.Runtime\Dapper.Npa.Runtime.csproj" />
+    <ProjectReference Include="..\..\src\Dapper.Npa\Dapper.Npa.csproj" />
     <ProjectReference Include="..\..\src\Dapper.Npa.Generator\Dapper.Npa.Generator.csproj" />
   </ItemGroup>
 
