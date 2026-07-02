@@ -4,7 +4,7 @@
 
   <PropertyGroup>
     <IsPackable>true</IsPackable>
-    <PackageDescription>$(MSBuildProjectName) - part of DapperX, a compile-time generated data access framework for .NET.</PackageDescription>
+    <PackageDescription>$(MSBuildProjectName) - part of Dapper Npa, a compile-time generated data access framework for .NET.</PackageDescription>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);CS1591</NoWarn>
     <IncludeSymbols>true</IncludeSymbols>

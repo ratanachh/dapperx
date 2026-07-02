@@ -5,16 +5,15 @@
 	<s:String x:Key="/Default/Environment/Hierarchy/Build/BuildTool/CustomBuildToolPath/@EntryValue">C:\Users\CRatana\AppData\Local\Programs\Rider\tools\MSBuild\Current\Bin\amd64\MSBuild.exe</s:String>
 	<s:Boolean x:Key="/Default/Environment/Hierarchy/Build/BuildTool/RecentDotNetCliExePaths/=C_003A_005CUsers_005CCRatana_005C_002Edotnet_005Csdk_005Cdotnet_002Dsdk_002D10_002E0_002E300_002Dwin_002Dx64_005Cdotnet_002Eexe/@EntryIndexedValue">True</s:Boolean>
 	<s:String x:Key="/Default/Environment/Hierarchy/Build/BuildTool/DotNetCliExePath/@EntryValue">C:\Users\CRatana\.dotnet\sdk\dotnet-sdk-10.0.300-win-x64\dotnet.exe</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=1259822a_002D5519_002D4640_002D8054_002Dfe8c9eb9bcec/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="AuditedProductRepositoryImpl_UpdateSql_excludes_created_audit_columns" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::0DBC83C0-91AB-B16F-E89C-B1DD496A7FBC::net10.0::DapperX.Tests.AuditingTests.AuditedProductRepositoryImpl_UpdateSql_excludes_created_audit_columns&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
-&lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=22150e4a_002Dfcb6_002D40dc_002Da813_002D08ab6b71ee6b/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="MatrixCpqlItem_emits_translated_cpql_literals" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;Or&gt;&#xD;
-    &lt;TestAncestor&gt;&#xD;
-      &lt;TestId&gt;xUnit::A9CC7ED9-E85B-C1B7-251F-E6280BBB35ED::net10.0::DapperX.Tests.Shared.Generation.CpqlEmittedSqlMatrixTests.MatrixCpqlItem_emits_translated_cpql_literals&lt;/TestId&gt;&#xD;
-    &lt;/TestAncestor&gt;&#xD;
-    &lt;Project Location="D:\home\cratana\code\dapperx\tests\DapperX.IntegrationTests.MySql" Presentation="&amp;lt;tests&amp;gt;\&amp;lt;DapperX.IntegrationTests.MySql&amp;gt;" /&gt;&#xD;
-  &lt;/Or&gt;&#xD;
-&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	</wpf:ResourceDictionary>

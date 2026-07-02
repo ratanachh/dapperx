@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <DapperXDatabaseProvider>MySql</DapperXDatabaseProvider>
+  </PropertyGroup>
+  <Import Project="..\Dapper.Npa.Tests.ProviderTestProject.props" />
+</Project>

@@ -1,0 +1,44 @@
+<Project>
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+    <CompilerGeneratedFilesOutputPath>$(BaseIntermediateOutputPath)Generated</CompilerGeneratedFilesOutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <CompilerVisibleProperty Include="DapperXDatabaseProvider" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.1.66" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4" />
+  </ItemGroup>
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+  <PropertyGroup>
+    <DefineConstants Condition="'$(DapperXDatabaseProvider)' == 'SqlServer'">$(DefineConstants);DAPPERX_PROVIDER_SQLSERVER</DefineConstants>
+    <DefineConstants Condition="'$(DapperXDatabaseProvider)' == 'PostgreSql'">$(DefineConstants);DAPPERX_PROVIDER_POSTGRESQL</DefineConstants>
+    <DefineConstants Condition="'$(DapperXDatabaseProvider)' == 'MySql'">$(DefineConstants);DAPPERX_PROVIDER_MYSQL</DefineConstants>
+    <DefineConstants Condition="'$(DapperXDatabaseProvider)' == 'Sqlite'">$(DefineConstants);DAPPERX_PROVIDER_SQLITE</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Dapper.Npa.IntegrationTests.Shared\Dapper.Npa.IntegrationTests.Shared.csproj" />
+    <ProjectReference Include="..\..\src\Dapper.Npa.Core\Dapper.Npa.Core.csproj" />
+    <ProjectReference Include="..\..\src\Dapper.Npa.Abstractions\Dapper.Npa.Abstractions.csproj" />
+    <ProjectReference Include="..\..\src\Dapper.Npa.Query\Dapper.Npa.Query.csproj" />
+    <ProjectReference Include="..\..\src\Dapper.Npa.Relations\Dapper.Npa.Relations.csproj" />
+    <ProjectReference Include="..\..\src\Dapper.Npa.Lifecycle\Dapper.Npa.Lifecycle.csproj" />
+    <ProjectReference Include="..\..\src\Dapper.Npa.Batching\Dapper.Npa.Batching.csproj" />
+    <ProjectReference Include="..\..\src\Dapper.Npa.Runtime\Dapper.Npa.Runtime.csproj" />
+    <ProjectReference Include="..\..\src\Dapper.Npa.Generator\Dapper.Npa.Generator.csproj"
+                      OutputItemType="Analyzer"
+                      ReferenceOutputAssembly="false" />
+  </ItemGroup>
+  <Import Project="Dapper.Npa.IntegrationTests.Shared\IntegrationFixtures.props" />
+  <Import Project="Dapper.Npa.IntegrationTests.Shared\IntegrationScenarios.props" />
+</Project>
