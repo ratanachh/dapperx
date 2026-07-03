@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <DapperXDatabaseProvider>MySql</DapperXDatabaseProvider>
+  </PropertyGroup>
+  <Import Project="..\DapperX.IntegrationTests.ProviderTestProject.props" />
+  <ItemGroup>
+    <PackageReference Include="MySqlConnector" Version="2.4.0" />
+    <PackageReference Include="Testcontainers.MySql" Version="4.8.0" />
+  </ItemGroup>
+</Project>

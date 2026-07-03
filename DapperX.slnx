@@ -1,21 +1,21 @@
 <Solution>
   <Folder Name="/samples/">
-    <Project Path="samples/Dapper.Npa.SampleApp/Dapper.Npa.SampleApp.csproj" />
+    <Project Path="samples/DapperX.SampleApp/DapperX.SampleApp.csproj" />
   </Folder>
   <Folder Name="/src/">
-    <Project Path="src/Dapper.Npa/Dapper.Npa.csproj" />
-    <Project Path="src/Dapper.Npa.Generator/Dapper.Npa.Generator.csproj" />
+    <Project Path="src/DapperX.Generator/DapperX.Generator.csproj" />
+    <Project Path="src/DapperX/DapperX.csproj" />
   </Folder>
   <Folder Name="/tests/">
-    <Project Path="tests/Dapper.Npa.Performance.Tests/Dapper.Npa.Performance.Tests.csproj" />
-    <Project Path="tests/Dapper.Npa.Tests.MySql/Dapper.Npa.Tests.MySql.csproj" />
-    <Project Path="tests/Dapper.Npa.Tests.PostgreSql/Dapper.Npa.Tests.PostgreSql.csproj" />
-    <Project Path="tests/Dapper.Npa.Tests.Sqlite/Dapper.Npa.Tests.Sqlite.csproj" />
-    <Project Path="tests/Dapper.Npa.Tests/Dapper.Npa.Tests.csproj" />
-    <Project Path="tests/Dapper.Npa.IntegrationTests.PostgreSql/Dapper.Npa.IntegrationTests.PostgreSql.csproj" />
-    <Project Path="tests/Dapper.Npa.IntegrationTests.Sqlite/Dapper.Npa.IntegrationTests.Sqlite.csproj" />
-    <Project Path="tests/Dapper.Npa.IntegrationTests.MySql/Dapper.Npa.IntegrationTests.MySql.csproj" />
-    <Project Path="tests/Dapper.Npa.IntegrationTests.Shared/Dapper.Npa.IntegrationTests.Shared.csproj" />
-    <Project Path="tests/Dapper.Npa.IntegrationTests.SqlServer/Dapper.Npa.IntegrationTests.SqlServer.csproj" />
+    <Project Path="tests/DapperX.IntegrationTests.Shared/DapperX.IntegrationTests.Shared.csproj" />
+    <Project Path="tests/DapperX.IntegrationTests.MySql/DapperX.IntegrationTests.MySql.csproj" />
+    <Project Path="tests/DapperX.IntegrationTests.PostgreSql/DapperX.IntegrationTests.PostgreSql.csproj" />
+    <Project Path="tests/DapperX.IntegrationTests.Sqlite/DapperX.IntegrationTests.Sqlite.csproj" />
+    <Project Path="tests/DapperX.IntegrationTests.SqlServer/DapperX.IntegrationTests.SqlServer.csproj" />
+    <Project Path="tests/DapperX.Performance.Tests/DapperX.Performance.Tests.csproj" />
+    <Project Path="tests/DapperX.Tests.MySql/DapperX.Tests.MySql.csproj" />
+    <Project Path="tests/DapperX.Tests.PostgreSql/DapperX.Tests.PostgreSql.csproj" />
+    <Project Path="tests/DapperX.Tests.Sqlite/DapperX.Tests.Sqlite.csproj" />
+    <Project Path="tests/DapperX.Tests/DapperX.Tests.csproj" />
   </Folder>
 </Solution>
