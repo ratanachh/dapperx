@@ -28,8 +28,8 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\DapperX.IntegrationTests.Shared\DapperX.IntegrationTests.Shared.csproj" />
-    <ProjectReference Include="..\..\src\Dapper.Npa\Dapper.Npa.csproj" />
-    <ProjectReference Include="..\..\src\Dapper.Npa.Generator\Dapper.Npa.Generator.csproj"
+    <ProjectReference Include="..\..\src\DapperX\DapperX.csproj" />
+    <ProjectReference Include="..\..\src\DapperX.Generator\DapperX.Generator.csproj"
                       OutputItemType="Analyzer"
                       ReferenceOutputAssembly="false" />
   </ItemGroup>

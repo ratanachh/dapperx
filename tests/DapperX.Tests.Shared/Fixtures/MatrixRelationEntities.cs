@@ -1,9 +1,9 @@
-using Dapper.Npa.Abstractions.Repositories;
-using Dapper.Npa.Core.Attributes;
-using Dapper.Npa.Core.Enums;
-using Dapper.Npa.Relations.Lazy;
+using DapperX.Abstractions.Repositories;
+using DapperX.Core.Attributes;
+using DapperX.Core.Enums;
+using DapperX.Relations.Lazy;
 
-namespace Dapper.Npa.Tests.Shared.Fixtures;
+namespace DapperX.Tests.Shared.Fixtures;
 
 [Entity]
 [Table("matrix_locked_products")]

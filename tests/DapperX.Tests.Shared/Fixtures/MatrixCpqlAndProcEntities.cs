@@ -1,8 +1,8 @@
-using Dapper.Npa.Abstractions.Repositories;
-using Dapper.Npa.Core.Attributes;
-using Dapper.Npa.Core.Enums;
+using DapperX.Abstractions.Repositories;
+using DapperX.Core.Attributes;
+using DapperX.Core.Enums;
 
-namespace Dapper.Npa.Tests.Shared.Fixtures;
+namespace DapperX.Tests.Shared.Fixtures;
 
 [Entity]
 [Table("matrix_cpql_items")]

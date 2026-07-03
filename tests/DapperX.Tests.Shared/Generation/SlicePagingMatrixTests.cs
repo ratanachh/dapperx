@@ -1,4 +1,4 @@
-namespace Dapper.Npa.Tests.Shared.Generation;
+namespace DapperX.Tests.Shared.Generation;
 
 public class SlicePagingMatrixTests
 {

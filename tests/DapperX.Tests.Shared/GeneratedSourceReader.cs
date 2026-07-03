@@ -1,4 +1,4 @@
-namespace Dapper.Npa.Tests.Shared;
+namespace DapperX.Tests.Shared;
 
 /// <summary>Reads emitted <c>*RepositoryImpl.g.cs</c> files from the test project's generator output folder.</summary>
 public static class GeneratedSourceReader

@@ -1,4 +1,4 @@
-namespace Dapper.Npa.Tests.Shared;
+namespace DapperX.Tests.Shared;
 
 /// <summary>Per-provider SQL literal assertions for matrix-4 generation tests.</summary>
 public static class ProviderExpectations

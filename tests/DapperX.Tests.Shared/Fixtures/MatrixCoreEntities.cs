@@ -1,11 +1,11 @@
 using System.Data;
-using Dapper.Npa.Abstractions.Paging;
-using Dapper.Npa.Abstractions.Repositories;
-using Dapper.Npa.Abstractions.Sorting;
-using Dapper.Npa.Core.Attributes;
-using Dapper.Npa.Core.Enums;
+using DapperX.Abstractions.Paging;
+using DapperX.Abstractions.Repositories;
+using DapperX.Abstractions.Sorting;
+using DapperX.Core.Attributes;
+using DapperX.Core.Enums;
 
-namespace Dapper.Npa.Tests.Shared.Fixtures;
+namespace DapperX.Tests.Shared.Fixtures;
 
 [Entity]
 [Table("matrix_generated_orders")]
