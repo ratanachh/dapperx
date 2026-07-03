@@ -56,8 +56,11 @@ public static class DbExecutor
         SqlExecutionLogger.TryLog(in logContext, sql, param);
         try
         {
-            return await connection.ExecuteScalarAsync<T>(sql, param, transaction, commandTimeout, commandType)
-                .ConfigureAwait(false);
+            // Every DapperX caller uses ExecuteScalarAsync for a guaranteed-row scalar query
+            // (COUNT, SCOPE_IDENTITY, sequence NEXTVAL) with a value-type T, so a null result
+            // never actually occurs even though Dapper's signature allows it for reference types.
+            return (await connection.ExecuteScalarAsync<T>(sql, param, transaction, commandTimeout, commandType)
+                .ConfigureAwait(false))!;
         }
         catch (Exception ex) when (ex is not SqlExecutionException)
         {

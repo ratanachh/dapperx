@@ -21,7 +21,7 @@ internal static class ConverterValidator
             var propSymbol = ResolvePropertySymbol(symbol, prop);
             var location = propSymbol?.Locations.FirstOrDefault() ?? symbol.Locations.FirstOrDefault();
 
-            if (!TryResolveConverterType(compilation, prop.ConverterTypeName, out var converterType))
+            if (!TryResolveConverterType(compilation, prop.ConverterTypeName!, out var converterType))
             {
                 ctx.ReportDiagnostic(Diagnostic.Create(
                     Diagnostics.InvalidConverterType, location, prop.PropertyName, entity.ClassName,

@@ -80,7 +80,7 @@ internal static class MetadataBuilder
         var idProp = properties.FirstOrDefault(p => p.IsId);
         SequenceModel? sequence = null;
         if (idProp?.IdGenerationStrategy == "Sequence" && !string.IsNullOrEmpty(idProp.SequenceGeneratorName))
-            sequence = ResolveSequence(entity, idProp.SequenceGeneratorName);
+            sequence = ResolveSequence(entity, idProp.SequenceGeneratorName!);
 
         var associationOverrides = SyntaxHelper.GetAttributes(entity, SyntaxHelper.AssociationOverrideAttr)
             .Select(a => new AssociationOverrideModel
@@ -725,7 +725,7 @@ internal static class MetadataBuilder
         {
             PropertyName = prop.Name,
             CollectionTable = tableName,
-            JoinColumn = joinColumn,
+            JoinColumn = joinColumn!,
             ElementTypeName = elementFqn ?? "object",
             IsEmbeddable = isEmbeddable,
             ValueColumns = valueColumns,

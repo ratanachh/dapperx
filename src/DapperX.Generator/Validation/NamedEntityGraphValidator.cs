@@ -90,7 +90,7 @@ internal static class NamedEntityGraphValidator
         if (string.IsNullOrEmpty(fqn))
             return false;
 
-        var key = fqn.StartsWith("global::", StringComparison.Ordinal) ? fqn.Substring(8) : fqn;
+        var key = fqn!.StartsWith("global::", StringComparison.Ordinal) ? fqn.Substring(8) : fqn;
         if (allModels.TryGetValue(key, out targetModel!))
             return true;
 

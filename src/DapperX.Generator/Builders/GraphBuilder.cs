@@ -88,7 +88,7 @@ internal static class GraphBuilder
         if (string.IsNullOrEmpty(childFqn))
             return;
 
-        var child = ResolveEntity(childFqn, allModels);
+        var child = ResolveEntity(childFqn!, allModels);
         if (child is null)
             return;
 
@@ -103,7 +103,7 @@ internal static class GraphBuilder
             ChildEntity = child,
             ChildImplTypeName = ResolveImplTypeName(child),
             ChildFqn = child.FullyQualifiedName,
-            FkPropertyName = fkProp,
+            FkPropertyName = fkProp!,
         });
     }
 
@@ -127,7 +127,7 @@ internal static class GraphBuilder
                          r.Kind == "OneToMany" && r.IsLazyCollection && r.CascadeFlags != CascadeHelper.None))
             {
                 var childFqn = rel.ChildEntityFqn ?? rel.TargetEntity;
-                if (!string.IsNullOrEmpty(childFqn) && Visit(childFqn, allModels, visiting, visited))
+                if (!string.IsNullOrEmpty(childFqn) && Visit(childFqn!, allModels, visiting, visited))
                     return true;
             }
         }

@@ -12,7 +12,7 @@ internal static class CompileTimeDatabaseProvider
     {
         if (!string.IsNullOrWhiteSpace(msBuildProvider))
         {
-            var fromBuild = Normalize(msBuildProvider);
+            var fromBuild = Normalize(msBuildProvider!);
             if (fromBuild is not null)
                 return fromBuild;
         }

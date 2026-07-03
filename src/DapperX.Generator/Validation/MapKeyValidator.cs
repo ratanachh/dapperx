@@ -33,7 +33,7 @@ internal static class MapKeyValidator
             if (string.IsNullOrEmpty(rel.TargetEntity))
                 continue;
 
-            if (!TryResolveChildModel(rel.TargetEntity, allModels, out var childModel))
+            if (!TryResolveChildModel(rel.TargetEntity!, allModels, out var childModel))
                 continue;
 
             if (string.IsNullOrEmpty(rel.MapKeyPropertyName))

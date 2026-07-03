@@ -1,6 +1,6 @@
 namespace DapperX.Generator.Utils;
 
-/// <summary>Appends EPIC 25 logging context to generated <see cref="DapperX.Runtime.Execution.DbExecutor"/> calls.</summary>
+/// <summary>Appends EPIC 25 logging context to generated <c>DapperX.Runtime.Execution.DbExecutor</c> calls.</summary>
 internal static class DbExecutorEmission
 {
     public const string LogContextSuffix =

@@ -149,7 +149,7 @@ internal static class LazyLoaderGenerator
         if (string.IsNullOrEmpty(fqn))
             return false;
 
-        var key = fqn.StartsWith("global::", StringComparison.Ordinal) ? fqn.Substring("global::".Length) : fqn;
+        var key = fqn!.StartsWith("global::", StringComparison.Ordinal) ? fqn.Substring("global::".Length) : fqn;
         if (allModels.TryGetValue(key, out targetModel!))
             return true;
 

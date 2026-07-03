@@ -28,8 +28,8 @@ internal static class TypeCompatibilityHelper
         if (string.IsNullOrEmpty(expected) || string.IsNullOrEmpty(actual))
             return false;
 
-        var normalizedExpected = Normalize(expected);
-        var normalizedActual = Normalize(actual);
+        var normalizedExpected = Normalize(expected!);
+        var normalizedActual = Normalize(actual!);
         if (string.Equals(normalizedExpected, normalizedActual, StringComparison.Ordinal))
             return true;
 

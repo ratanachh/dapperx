@@ -20,7 +20,8 @@ internal static class RelationshipSqlBuilder
         if (rel.IsPrimaryKeyJoin)
             filters.Add(ProviderSqlHelper.InClause(idColumn, "parentIds", provider));
         else
-            filters.Add(ProviderSqlHelper.InClause(rel.ForeignKeyColumn, "parentIds", provider));
+            // IsBatchLoadable (checked by callers before reaching here) implies ForeignKeyColumn is non-null; see RelationshipMetadataEnricher.
+            filters.Add(ProviderSqlHelper.InClause(rel.ForeignKeyColumn!, "parentIds", provider));
 
         if (childEntity.SoftDeleteColumn is not null)
             filters.Add(ProviderSqlHelper.SoftDeleteActivePredicate(childEntity.SoftDeleteColumn, provider));

@@ -517,7 +517,7 @@ internal static class CpqlSemanticValidator
         {
             if (!string.IsNullOrEmpty(item.Alias))
             {
-                cols.Add(item.Alias);
+                cols.Add(item.Alias!);
                 continue;
             }
 

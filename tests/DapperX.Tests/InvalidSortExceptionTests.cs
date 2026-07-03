@@ -21,6 +21,7 @@ public class InvalidSortExceptionTests
 
     private sealed class StubDbConnection : IDbConnection
     {
+        [System.Diagnostics.CodeAnalysis.AllowNull]
         public string ConnectionString { get; set; } = string.Empty;
         public int ConnectionTimeout => 0;
         public string Database => string.Empty;

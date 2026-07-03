@@ -5,5 +5,9 @@ using DapperX.Abstractions.Converters;
 public sealed class EnumToStringConverter<TEnum> : IValueConverter<TEnum, string> where TEnum : struct, Enum
 {
     public string ToColumn(TEnum value) => value.ToString();
-    public TEnum ToProperty(string value) => Enum.Parse<TEnum>(value);
+
+    public TEnum ToProperty(string? value) =>
+        value is null
+            ? throw new InvalidOperationException($"Cannot convert null column value to enum type '{typeof(TEnum).Name}'.")
+            : Enum.Parse<TEnum>(value);
 }

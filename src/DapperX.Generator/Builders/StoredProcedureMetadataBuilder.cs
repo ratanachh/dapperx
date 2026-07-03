@@ -55,7 +55,7 @@ internal static class StoredProcedureMetadataBuilder
         {
             parameters.Add(new ProcParamModel
             {
-                Name = returnParameter,
+                Name = returnParameter!,
                 Mode = "Return",
                 ClrTypeName = procResultTypeArgs.FirstOrDefault(),
             });

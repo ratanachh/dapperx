@@ -63,5 +63,6 @@ internal static class RelationshipValidator
 
     private static Location ResolvePropertyLocation(INamedTypeSymbol entity, string propertyName)
         => entity.GetMembers(propertyName).OfType<IPropertySymbol>().FirstOrDefault()?.Locations.FirstOrDefault()
-           ?? entity.Locations.FirstOrDefault();
+           ?? entity.Locations.FirstOrDefault()
+           ?? Location.None;
 }

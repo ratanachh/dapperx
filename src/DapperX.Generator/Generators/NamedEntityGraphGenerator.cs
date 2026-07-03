@@ -208,7 +208,7 @@ internal static class NamedEntityGraphGenerator
         if (string.IsNullOrEmpty(fqn))
             return null;
 
-        var key = fqn.StartsWith("global::", StringComparison.Ordinal) ? fqn.Substring(8) : fqn;
+        var key = fqn!.StartsWith("global::", StringComparison.Ordinal) ? fqn.Substring(8) : fqn;
         if (allModels.TryGetValue(key, out var model))
             return model;
 

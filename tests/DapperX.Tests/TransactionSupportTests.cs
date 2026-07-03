@@ -112,6 +112,7 @@ public class TransactionSupportTests
         public FakeDbTransaction? Transaction { get; private set; }
         public int BeginTransactionCallCount { get; private set; }
 
+        [System.Diagnostics.CodeAnalysis.AllowNull]
         public string ConnectionString { get; set; } = string.Empty;
         public int ConnectionTimeout => 0;
         public string Database => string.Empty;

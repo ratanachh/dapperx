@@ -36,10 +36,10 @@ internal static class RelationshipMetadataEnricher
         if (string.IsNullOrEmpty(rel.JoinTable) || string.IsNullOrEmpty(rel.TargetEntity))
             return;
 
-        var targetFqn = NormalizeFqn(rel.TargetEntity);
+        var targetFqn = NormalizeFqn(rel.TargetEntity!);
         if (!models.TryGetValue(targetFqn, out var targetModel))
         {
-            var sym = compilation.GetTypeByMetadataName(ToMetadataName(rel.TargetEntity));
+            var sym = compilation.GetTypeByMetadataName(ToMetadataName(rel.TargetEntity!));
             if (sym is null) return;
             targetModel = MetadataBuilder.Build(sym, ctx);
             if (targetModel is null) return;
@@ -95,7 +95,7 @@ internal static class RelationshipMetadataEnricher
         ResolveForeignKey(parent, rel, childModel, compilation, ctx);
 
         if (rel.IsLazyMap && !string.IsNullOrEmpty(rel.MapKeyColumn))
-            rel.MapKeyPropertyName = FindPropertyByColumn(childModel, rel.MapKeyColumn);
+            rel.MapKeyPropertyName = FindPropertyByColumn(childModel, rel.MapKeyColumn!);
 
         rel.IsBatchLoadable = !string.IsNullOrEmpty(rel.ForeignKeyColumn)
                               && !string.IsNullOrEmpty(rel.FkPropertyNameOnChild);
@@ -116,7 +116,7 @@ internal static class RelationshipMetadataEnricher
 
         if (!string.IsNullOrEmpty(rel.MappedBy))
         {
-            var backRef = childSymbol.GetMembers(rel.MappedBy)
+            var backRef = childSymbol.GetMembers(rel.MappedBy!)
                 .OfType<IPropertySymbol>()
                 .FirstOrDefault();
             if (backRef is not null && SyntaxHelper.HasAttribute(backRef, SyntaxHelper.ManyToOneAttr))
@@ -140,7 +140,7 @@ internal static class RelationshipMetadataEnricher
         }
 
         rel.ForeignKeyColumn = fkColumn;
-        rel.FkPropertyNameOnChild = FindPropertyByColumn(child, fkColumn)
+        rel.FkPropertyNameOnChild = FindPropertyByColumn(child, fkColumn!)
             ?? FindFkPropertyByConvention(child, parent.ClassName);
 
         if (rel.FkPropertyNameOnChild is null)

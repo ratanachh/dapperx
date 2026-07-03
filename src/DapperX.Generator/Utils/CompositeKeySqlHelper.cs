@@ -46,7 +46,7 @@ internal static class CompositeKeySqlHelper
     public static string ResolveIdTypeName(EntityModel entity, RepositoryInterfaceModel? repositoryInterface)
     {
         if (!string.IsNullOrEmpty(repositoryInterface?.IdTypeName))
-            return repositoryInterface.IdTypeName;
+            return repositoryInterface!.IdTypeName;
 
         if (entity.CompositeKey is not null)
             return FormatClrType(entity.CompositeKey.KeyTypeName);

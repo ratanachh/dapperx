@@ -75,7 +75,7 @@ internal static class EntityQueryEmitter
     public static string GetExecuteParameterExpression(EntityModel entity, string entityVariable = "entity")
         => entity.RequiresDbRow ? $"BuildMutationParameters({entityVariable})" : entityVariable;
 
-    /// <summary>Overrides <see cref="DapperXRepositoryBase{TEntity,TId}"/> reads when DbRow mapping is required and tenancy/filters do not already override.</summary>
+    /// <summary>Overrides <c>DapperXRepositoryBase&lt;TEntity,TId&gt;</c> reads when DbRow mapping is required and tenancy/filters do not already override.</summary>
     public static void EmitStandardReadOverrides(StringBuilder sb, EntityModel entity, string entityFqn, string idType)
     {
         EmitGetByIdOverride(sb, entity, entityFqn, idType);

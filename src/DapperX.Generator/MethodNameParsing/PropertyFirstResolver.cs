@@ -16,7 +16,7 @@ internal sealed class PropertyFirstResolver
     }
 
     /// <summary>
-    /// Try to match the longest entity property name starting at <paramref name="segment"/>.
+    /// Try to match the longest entity property name starting at <paramref name="remaining"/>.
     /// Returns the matching property name or null if no property matches.
     /// </summary>
     public IReadOnlyList<string> GetAllMatches(string remaining)

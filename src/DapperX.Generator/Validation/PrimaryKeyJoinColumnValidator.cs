@@ -29,7 +29,7 @@ internal static class PrimaryKeyJoinColumnValidator
             if (string.IsNullOrEmpty(rel.TargetEntity))
                 continue;
 
-            var childSymbol = ResolveChildSymbol(rel.TargetEntity, compilation);
+            var childSymbol = ResolveChildSymbol(rel.TargetEntity!, compilation);
             if (childSymbol is null)
                 continue;
 

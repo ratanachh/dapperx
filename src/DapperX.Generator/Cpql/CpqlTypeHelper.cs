@@ -140,7 +140,7 @@ internal sealed class CpqlSemanticContext
     {
         var fqn = rel.ChildEntityFqn ?? rel.TargetEntity;
         if (string.IsNullOrEmpty(fqn)) return null;
-        var key = fqn.StartsWith("global::", StringComparison.Ordinal) ? fqn.Substring(8) : fqn;
+        var key = fqn!.StartsWith("global::", StringComparison.Ordinal) ? fqn.Substring(8) : fqn;
         if (AllModels.TryGetValue(key, out var model)) return model;
         foreach (var m in AllModels.Values)
         {
