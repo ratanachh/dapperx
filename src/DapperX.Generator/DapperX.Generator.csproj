@@ -8,6 +8,7 @@
     <IsRoslynComponent>true</IsRoslynComponent>
     <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
     <IncludeCompilerGeneratedFiles>true</IncludeCompilerGeneratedFiles>
+    <PackageId>Ratana.DapperX.Generator</PackageId>
     <!-- Generator must NOT reference DapperX.Runtime — only Core via Roslyn SemanticModel -->
 
     <!-- Analyzer packages ship the DLL under analyzers/dotnet/cs, not lib/ -->
