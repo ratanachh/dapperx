@@ -590,6 +590,7 @@ internal static class MetadataBuilder
                 EmbeddableTypeFqn = embedType.ToDisplayString(),
                 Overrides = overrides.Select(kv => (kv.Key, kv.Value)).ToList(),
                 InnerPropertyNames = innerNames,
+                IsNullable = member.NullableAnnotation == NullableAnnotation.Annotated,
             });
         }
 

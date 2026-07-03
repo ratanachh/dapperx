@@ -4,7 +4,7 @@ namespace DapperX.Tests;
 
 public class CpqlScalarSnapshotTests
 {
-    public static IEnumerable<object[]> ScalarFunctionCases()
+    public static IEnumerable<object?[]> ScalarFunctionCases()
     {
         var providers = new[] { "SqlServer", "PostgreSql", "MySql", "Sqlite" };
         var functions = new (string Name, string[] Args, string? CastType)[]
@@ -36,7 +36,7 @@ public class CpqlScalarSnapshotTests
 
         foreach (var provider in providers)
         foreach (var fn in functions)
-            yield return new object[] { provider, fn.Name, fn.Args, fn.CastType };
+            yield return new object?[] { provider, fn.Name, fn.Args, fn.CastType };
     }
 
     [Theory]

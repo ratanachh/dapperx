@@ -22,7 +22,11 @@ public class EmbeddableGenerationTests
         Assert.Contains("MapFromDbRow", source);
         Assert.Contains("BuildMutationParameters", source);
         Assert.Contains("AddressCity = entity.Address?.City", source);
-        Assert.Contains("entity.Address = null", source);
+        // Product.Address is declared non-nullable, so MapFromDbRow must always construct an instance
+        // rather than null it out when the underlying columns are NULL (that would violate the entity's
+        // own nullability contract).
+        Assert.Contains("entity.Address = new", source);
+        Assert.DoesNotContain("entity.Address = null", source);
         Assert.Contains("address_city", source);
     }
 

@@ -7,4 +7,5 @@ internal sealed class EmbeddedModel
     public string EmbeddableTypeFqn { get; init; } = string.Empty;
     public IReadOnlyList<(string Property, string Column)> Overrides { get; init; } = [];
     public IReadOnlyList<string> InnerPropertyNames { get; init; } = [];
+    public bool IsNullable { get; init; }
 }

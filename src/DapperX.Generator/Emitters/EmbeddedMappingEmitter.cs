@@ -47,8 +47,11 @@ internal static class EmbeddedMappingEmitter
         sb.AppendLine("    {");
         sb.AppendLine($"        var entity = new {entityFqn}();");
 
+        // Reference-typed DbRow columns are always emitted nullable (see useNullable above) to tolerate
+        // the possibility of a NULL value at the ADO.NET layer even for NOT NULL-by-schema columns; the
+        // '!' below trusts the database schema rather than the compiler's static nullable analysis.
         foreach (var p in entity.Properties.Where(p => !p.IsTransient && !p.IsEmbeddedColumn && p.ConverterTypeName is null))
-            sb.AppendLine($"        entity.{p.PropertyName} = row.{p.PropertyName};");
+            sb.AppendLine($"        entity.{p.PropertyName} = row.{p.PropertyName}!;");
 
         foreach (var site in entity.EmbeddedSites)
         {
@@ -60,15 +63,26 @@ internal static class EmbeddedMappingEmitter
             if (cols.Count == 0)
                 continue;
 
-            var nullChecks = string.Join(" && ", cols.Select(c => $"row.{c.PropertyName} is null"));
-            sb.AppendLine($"        if ({nullChecks})");
-            sb.AppendLine($"            entity.{site.PropertyName} = null;");
-            sb.AppendLine("        else");
-            sb.AppendLine("        {");
-            sb.AppendLine($"            entity.{site.PropertyName} = new {embedFqn}();");
-            foreach (var c in cols.Where(c => c.ConverterTypeName is null))
-                sb.AppendLine($"            entity.{site.PropertyName}.{c.EmbeddedInner} = row.{c.PropertyName};");
-            sb.AppendLine("        }");
+            if (site.IsNullable)
+            {
+                var nullChecks = string.Join(" && ", cols.Select(c => $"row.{c.PropertyName} is null"));
+                sb.AppendLine($"        if ({nullChecks})");
+                sb.AppendLine($"            entity.{site.PropertyName} = null;");
+                sb.AppendLine("        else");
+                sb.AppendLine("        {");
+                sb.AppendLine($"            entity.{site.PropertyName} = new {embedFqn}();");
+                foreach (var c in cols.Where(c => c.ConverterTypeName is null))
+                    sb.AppendLine($"            entity.{site.PropertyName}.{c.EmbeddedInner} = row.{c.PropertyName}!;");
+                sb.AppendLine("        }");
+            }
+            else
+            {
+                // The embedded property is declared non-nullable, so unlike the nullable case above,
+                // it must always be constructed rather than set to null when the underlying columns are NULL.
+                sb.AppendLine($"        entity.{site.PropertyName} = new {embedFqn}();");
+                foreach (var c in cols.Where(c => c.ConverterTypeName is null))
+                    sb.AppendLine($"        entity.{site.PropertyName}.{c.EmbeddedInner} = row.{c.PropertyName}!;");
+            }
         }
 
         foreach (var p in entity.Properties.Where(p => !p.IsTransient && !p.IsEmbeddedColumn && p.ConverterTypeName is not null))
