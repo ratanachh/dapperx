@@ -8,6 +8,11 @@ using DapperX.Abstractions.Sorting;
 using DapperX.Core.Enums;
 using DapperX.Query.Expressions;
 
+/// <summary>
+/// Mutable builder used by generated <see cref="DapperX.Abstractions.Query.IQuery{T}"/> implementations to
+/// accumulate fluent-query state before it's translated to SQL; not intended to be constructed directly by
+/// consumers.
+/// </summary>
 public sealed class QueryBuilder<T> where T : class
 {
     private readonly List<Expression<Func<T, bool>>> _predicates = new();
@@ -73,6 +78,7 @@ public sealed class QueryBuilder<T> where T : class
     };
 }
 
+/// <summary>Immutable snapshot of a <see cref="QueryBuilder{T}"/>, produced by <see cref="QueryBuilder{T}.Build"/>.</summary>
 public sealed class QueryBuilderState<T>
 {
     public IReadOnlyList<Expression<Func<T, bool>>> Predicates { get; init; } = [];

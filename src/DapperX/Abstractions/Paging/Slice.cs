@@ -6,7 +6,9 @@ namespace DapperX.Abstractions.Paging;
 /// </summary>
 public sealed class Slice<T>
 {
+    /// <summary>The rows for the requested page (at most <c>pageSize</c> rows).</summary>
     public IReadOnlyList<T> Content { get; }
+    /// <summary>Whether at least one more row exists beyond this page.</summary>
     public bool HasNext { get; }
 
     public Slice(IList<T> rawResults, int pageSize)
