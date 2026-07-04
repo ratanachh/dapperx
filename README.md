@@ -3,7 +3,7 @@
 [![NuGet](https://img.shields.io/nuget/v/Ratana.DapperX.svg)](https://www.nuget.org/packages/Ratana.DapperX)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-A compile-time, source-generator-powered data access framework for .NET, built on top of [Dapper](https://github.com/DapperLib/Dapper). Inspired by JPA/Hibernate and Spring Data conventions, DapperX lets you define entities and repository interfaces with attributes and get fully-typed, reflection-free repository implementations generated at build time — no runtime reflection, no change tracking, no dynamic SQL.
+A compile-time, source-generator-powered data access framework for .NET, built on top of [Dapper](https://github.com/DapperLib/Dapper). DapperX lets you define entities and repository interfaces with attributes and get fully-typed, reflection-free repository implementations generated at build time — no runtime reflection, no change tracking, no dynamic SQL.
 
 ## Features
 
@@ -11,7 +11,7 @@ A compile-time, source-generator-powered data access framework for .NET, built o
 - **Relations** — `[OneToOne]`, `[OneToMany]`, `[ManyToOne]`, `[ManyToMany]` with lazy-loaded collections/references
 - **Batch & graph operations** — `InsertManyAsync`/`UpdateManyAsync`/`DeleteManyAsync`, `InsertGraphAsync`/`UpdateGraphAsync`/`DeleteGraphAsync` with dependency-graph-ordered execution
 - **Derived query methods** — Spring-Data-style methods parsed from method names (`FindByCategoryAndInStockAsync(...)`)
-- **CPQL** — a JPQL-like query language for `[NamedQuery]`/`[Query]` methods, resolved to SQL at compile time
+- **CPQL** — a Type-like query language for `[NamedQuery]`/`[Query]` methods, resolved to SQL at compile time
 - **Paging & sorting** — `Page<T>`, `Slice<T>`, `Pageable`, `Sort`
 - **Soft delete, multi-tenancy & auditing** — `[SoftDelete]`, `[TenantId]`, `[GlobalFilter]`, `[CreatedDate]`/`[LastModifiedDate]`/`[CreatedBy]`/`[LastModifiedBy]`
 - **Lifecycle hooks** — `[PrePersist]`, `[PostPersist]`, `[PreUpdate]`, `[PostUpdate]`, `[PreRemove]`, `[PostRemove]`, `[PostLoad]`
