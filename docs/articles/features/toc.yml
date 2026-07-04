@@ -1,0 +1,18 @@
+- name: Entity Mapping
+  href: entity-mapping.md
+- name: Relations
+  href: relations.md
+- name: Batch & Graph Operations
+  href: batch-graph-operations.md
+- name: Derived Queries
+  href: derived-queries.md
+- name: CPQL
+  href: cpql.md
+- name: Paging & Sorting
+  href: paging-and-sorting.md
+- name: Soft Delete, Multi-Tenancy & Auditing
+  href: soft-delete-tenancy-auditing.md
+- name: Lifecycle Hooks
+  href: lifecycle-hooks.md
+- name: Providers
+  href: providers.md
