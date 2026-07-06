@@ -8,8 +8,12 @@ matching point in the entity's insert/update/delete/load lifecycle — no base c
 [Table("sample_orders")]
 public class SalesOrder
 {
-    [Id] [GeneratedValue(GenerationType.Identity)] public int Id { get; set; }
-    [Column] public string Code { get; set; } = string.Empty;
+    [Id]
+    [GeneratedValue(GenerationType.Identity)]
+    public int Id { get; set; }
+
+    [Column]
+    public string Code { get; set; } = string.Empty;
 
     [PrePersist]
     public void OnPrePersist() { /* e.g. normalize Code, stamp defaults */ }

@@ -4,7 +4,7 @@
 
   <PropertyGroup>
     <IsPackable>true</IsPackable>
-    <PackageDescription>DapperX is a compile-time, source-generator-powered data access framework for .NET built on top of Dapper. Define entities and repository interfaces with attributes and get reflection-free, fully-typed repository implementations at build time — including CRUD, batch/graph operations, paging &amp; sorting, soft delete, multi-tenancy, auditing, lifecycle hooks, and a JPQL-like query language (CPQL) — for SQL Server, PostgreSQL, MySQL, and SQLite.</PackageDescription>
+    <PackageDescription>DapperX is a compile-time, source-generator-powered data access framework for .NET built on top of Dapper. Define entities and repository interfaces with attributes and get reflection-free, fully-typed repository implementations at build time — including CRUD, batch/graph operations, paging &amp; sorting, soft delete, multi-tenancy, auditing, lifecycle hooks, and a compact query language (CPQL) — for SQL Server, PostgreSQL, MySQL, and SQLite.</PackageDescription>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);CS1591</NoWarn>

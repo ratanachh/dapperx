@@ -1,4 +1,5 @@
 - name: Articles
   href: articles/toc.yml
 - name: API Reference
-  href: api/toc.yml
+  href: api/index.md
+  tocHref: api/toc.yml

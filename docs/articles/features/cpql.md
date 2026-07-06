@@ -1,6 +1,6 @@
 # CPQL
 
-CPQL ("Compile-time Property Query Language") is a JPQL-like query language DapperX parses and translates to
+CPQL ("Compile-time Property Query Language") is a query language DapperX parses and translates to
 provider-specific SQL entirely at compile time — you write queries against entity property names and
 navigation paths, not table/column names, and DapperX resolves the mapping for you.
 

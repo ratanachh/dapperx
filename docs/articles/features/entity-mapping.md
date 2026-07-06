@@ -11,9 +11,15 @@ public class CatalogProduct
     [GeneratedValue(GenerationType.Identity)]
     public int Id { get; set; }
 
-    [Column] [Sortable] public string Sku { get; set; } = string.Empty;
-    [Column] public decimal Price { get; set; }
-    [Column(Name = "in_stock")] public bool InStock { get; set; } = true;
+    [Column]
+    [Sortable]
+    public string Sku { get; set; } = string.Empty;
+
+    [Column]
+    public decimal Price { get; set; }
+
+    [Column(Name = "in_stock")]
+    public bool InStock { get; set; } = true;
 }
 ```
 
@@ -36,12 +42,24 @@ each derived entity's mapping instead of generating a separate table:
 [MappedSuperclass]
 public abstract class BaseEntity
 {
-    [CreatedDate] [Column(Name = "created_at")] public DateTime CreatedAt { get; set; }
-    [LastModifiedDate] [Column(Name = "modified_at")] public DateTime ModifiedAt { get; set; }
-    [CreatedBy] [Column(Name = "created_by")] public string CreatedBy { get; set; } = string.Empty;
-    [LastModifiedBy] [Column(Name = "modified_by")] public string ModifiedBy { get; set; } = string.Empty;
+    [CreatedDate]
+    [Column(Name = "created_at")]
+    public DateTime CreatedAt { get; set; }
 
-    [Version] [Column(Name = "row_version")]
+    [LastModifiedDate]
+    [Column(Name = "modified_at")]
+    public DateTime ModifiedAt { get; set; }
+
+    [CreatedBy]
+    [Column(Name = "created_by")]
+    public string CreatedBy { get; set; } = string.Empty;
+
+    [LastModifiedBy]
+    [Column(Name = "modified_by")]
+    public string ModifiedBy { get; set; } = string.Empty;
+
+    [Version]
+    [Column(Name = "row_version")]
     public int RowVersion { get; set; }
 }
 ```
@@ -63,10 +81,15 @@ it with `[Column(Table = "...")]`:
 [SecondaryTable("member_profiles", PrimaryKeyJoinColumn = "member_id")]
 public class Member
 {
-    [Id] [GeneratedValue(GenerationType.Identity)] public int Id { get; set; }
+    [Id]
+    [GeneratedValue(GenerationType.Identity)]
+    public int Id { get; set; }
 
-    [Column] public string Email { get; set; } = string.Empty;
-    [Column(Table = "member_profiles")] public string Bio { get; set; } = string.Empty;
+    [Column]
+    public string Email { get; set; } = string.Empty;
+
+    [Column(Table = "member_profiles")]
+    public string Bio { get; set; } = string.Empty;
 }
 ```
 

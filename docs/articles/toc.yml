@@ -1,6 +1,7 @@
 - name: Getting Started
   href: getting-started.md
 - name: Feature Guides
-  href: features/toc.yml
-- name: Sample App Walkthrough
-  href: sample-app.md
+  href: features/index.md
+  tocHref: features/toc.yml
+- name: Demo App
+  href: demo-app.md

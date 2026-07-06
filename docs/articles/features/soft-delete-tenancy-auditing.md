@@ -10,12 +10,22 @@ These three cross-cutting behaviors compose on the same entity, as in the sample
 [EntityListeners(typeof(SampleAuditListener))]
 public class AppUser : BaseEntity   // BaseEntity carries [CreatedDate]/[LastModifiedDate]/[CreatedBy]/[LastModifiedBy]/[Version]
 {
-    [Id] [GeneratedValue(GenerationType.Identity)] public int Id { get; set; }
-    [Column] public string Email { get; set; } = string.Empty;
-    [Column] public string Region { get; set; } = "US";
+    [Id]
+    [GeneratedValue(GenerationType.Identity)]
+    public int Id { get; set; }
 
-    [TenantId] [Column(Name = "tenant_id")] public Guid TenantId { get; set; }
-    [Column(Name = "is_deleted")] public bool IsDeleted { get; set; }
+    [Column]
+    public string Email { get; set; } = string.Empty;
+
+    [Column]
+    public string Region { get; set; } = "US";
+
+    [TenantId]
+    [Column(Name = "tenant_id")]
+    public Guid TenantId { get; set; }
+
+    [Column(Name = "is_deleted")]
+    public bool IsDeleted { get; set; }
 }
 ```
 

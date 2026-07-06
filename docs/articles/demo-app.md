@@ -1,4 +1,4 @@
-# Sample App Walkthrough
+# Demo App Walkthrough
 
 [`samples/DapperX.SampleApp`](https://github.com/ratanachh/dapperx/tree/main/samples/DapperX.SampleApp) is a
 runnable ASP.NET Core minimal API that exercises nearly every DapperX feature end-to-end: CRUD, derived

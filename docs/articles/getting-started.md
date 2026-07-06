@@ -25,11 +25,20 @@ public class CatalogProduct
     [GeneratedValue(GenerationType.Identity)]
     public int Id { get; set; }
 
-    [Column] public string Sku { get; set; } = string.Empty;
-    [Column] public string Name { get; set; } = string.Empty;
-    [Column] public string Category { get; set; } = string.Empty;
-    [Column] public decimal Price { get; set; }
-    [Column(Name = "in_stock")] public bool InStock { get; set; } = true;
+    [Column]
+    public string Sku { get; set; } = string.Empty;
+
+    [Column]
+    public string Name { get; set; } = string.Empty;
+
+    [Column]
+    public string Category { get; set; } = string.Empty;
+
+    [Column]
+    public decimal Price { get; set; }
+
+    [Column(Name = "in_stock")]
+    public bool InStock { get; set; } = true;
 }
 ```
 
@@ -94,6 +103,6 @@ public class CatalogService(ICatalogProductRepository products)
 
 - Work through the [Feature Guides](toc.yml) for relations, batch/graph operations, CPQL, paging, soft
   delete/multi-tenancy/auditing, lifecycle hooks, and multi-provider support.
-- Run the [Sample App Walkthrough](sample-app.md) — a full ASP.NET Core minimal API exercising nearly every
+- Run the [Demo App Walkthrough](demo-app.md) — a full ASP.NET Core minimal API exercising nearly every
   attribute in this library, runnable with or without Docker.
 - Browse the [API Reference](../api/index.md) for the complete public surface.

@@ -10,8 +10,8 @@ A compile-time, source-generator-powered data access framework for .NET, built o
 - **Entity mapping** — `[Entity]`, `[Table]`, `[Id]`, `[GeneratedValue]`, `[Column]`, `[Version]`, `[Embeddable]`, `[MappedSuperclass]`, and more
 - **Relations** — `[OneToOne]`, `[OneToMany]`, `[ManyToOne]`, `[ManyToMany]` with lazy-loaded collections/references
 - **Batch & graph operations** — `InsertManyAsync`/`UpdateManyAsync`/`DeleteManyAsync`, `InsertGraphAsync`/`UpdateGraphAsync`/`DeleteGraphAsync` with dependency-graph-ordered execution
-- **Derived query methods** — Spring-Data-style methods parsed from method names (`FindByCategoryAndInStockAsync(...)`)
-- **CPQL** — a Type-like query language for `[NamedQuery]`/`[Query]` methods, resolved to SQL at compile time
+- **Derived query methods** — query methods parsed from method names (`FindByCategoryAndInStockAsync(...)`)
+- **CPQL** — a compact query language for `[NamedQuery]`/`[Query]` methods, resolved to SQL at compile time
 - **Paging & sorting** — `Page<T>`, `Slice<T>`, `Pageable`, `Sort`
 - **Soft delete, multi-tenancy & auditing** — `[SoftDelete]`, `[TenantId]`, `[GlobalFilter]`, `[CreatedDate]`/`[LastModifiedDate]`/`[CreatedBy]`/`[LastModifiedBy]`
 - **Lifecycle hooks** — `[PrePersist]`, `[PostPersist]`, `[PreUpdate]`, `[PostUpdate]`, `[PreRemove]`, `[PostRemove]`, `[PostLoad]`
@@ -41,11 +41,20 @@ public class CatalogProduct
     [GeneratedValue(GenerationType.Identity)]
     public int Id { get; set; }
 
-    [Column] public string Sku { get; set; } = string.Empty;
-    [Column] public string Name { get; set; } = string.Empty;
-    [Column] public string Category { get; set; } = string.Empty;
-    [Column] public decimal Price { get; set; }
-    [Column(Name = "in_stock")] public bool InStock { get; set; } = true;
+    [Column]
+    public string Sku { get; set; } = string.Empty;
+
+    [Column]
+    public string Name { get; set; } = string.Empty;
+
+    [Column]
+    public string Category { get; set; } = string.Empty;
+
+    [Column]
+    public decimal Price { get; set; }
+
+    [Column(Name = "in_stock")]
+    public bool InStock { get; set; } = true;
 }
 ```
 

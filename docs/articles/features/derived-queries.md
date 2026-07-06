@@ -1,6 +1,6 @@
 # Derived Queries
 
-Declare a method on a `[Repository]` interface following a Spring-Data-style naming convention, and DapperX
+Declare a method on a `[Repository]` interface following a predictable naming convention, and DapperX
 parses the name at compile time into a full SQL query — no method body, no attribute required:
 
 ```csharp

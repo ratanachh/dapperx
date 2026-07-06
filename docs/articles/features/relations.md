@@ -1,6 +1,6 @@
 # Relations
 
-DapperX relations are declared with JPA-style attributes and, by default, loaded **lazily** — the collection
+DapperX relations are declared with attributes and, by default, loaded **lazily** — the collection
 or reference isn't fetched until you access it (or explicitly `Include`/`ThenInclude` it in a fluent query).
 
 ## Many-to-one / one-to-many
@@ -10,8 +10,12 @@ or reference isn't fetched until you access it (or explicitly `Include`/`ThenInc
 [Table("sample_departments")]
 public class Department
 {
-    [Id] [GeneratedValue(GenerationType.Identity)] public int Id { get; set; }
-    [Column] public string Name { get; set; } = string.Empty;
+    [Id]
+    [GeneratedValue(GenerationType.Identity)]
+    public int Id { get; set; }
+
+    [Column]
+    public string Name { get; set; } = string.Empty;
 
     [OneToMany(MappedBy = nameof(Employee.Department))]
     [MapKey("employee_code")]
@@ -22,9 +26,15 @@ public class Department
 [Table("sample_employees")]
 public class Employee
 {
-    [Id] [GeneratedValue(GenerationType.Identity)] public int Id { get; set; }
-    [Column(Name = "department_id")] public int DepartmentId { get; set; }
-    [Column(Name = "employee_code")] public string EmployeeCode { get; set; } = string.Empty;
+    [Id]
+    [GeneratedValue(GenerationType.Identity)]
+    public int Id { get; set; }
+
+    [Column(Name = "department_id")]
+    public int DepartmentId { get; set; }
+
+    [Column(Name = "employee_code")]
+    public string EmployeeCode { get; set; } = string.Empty;
 
     [ManyToOne]
     [JoinColumn("department_id")]

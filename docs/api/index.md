@@ -6,7 +6,7 @@ contract, the fluent [`IQuery<T>`](xref:DapperX.Abstractions.Query.IQuery`1) API
 `DapperXOptions`, and the mapping/relation/behavior/auditing/lifecycle attributes under `DapperX.Core.Attributes`.
 
 Not every attribute has a written description yet — undocumented members still show their full signature,
-which is usually enough to see what they accept. See the [Feature Guides](../articles/toc.yml) for narrative
+which is usually enough to see what they accept. See the [Feature Guides](../articles/features/index.md) for narrative
 explanations and runnable examples of each attribute in context.
 
 Browse the namespace tree on the left, or use search.
