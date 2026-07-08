@@ -21,9 +21,8 @@ A compile-time, source-generator-powered data access framework for .NET, built o
 
 ```bash
 dotnet add package Ratana.DapperX
+dotnet add package Ratana.DapperX.Generator
 ```
-
-The `Ratana.DapperX` package brings in the source generator automatically as a build-time analyzer.
 
 ## Configuration
 
