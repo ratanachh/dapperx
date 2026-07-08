@@ -3,7 +3,7 @@
 [![NuGet](https://img.shields.io/nuget/v/Ratana.DapperX.svg)](https://www.nuget.org/packages/Ratana.DapperX)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-A compile-time, source-generator-powered data access framework for .NET, built on top of [Dapper](https://github.com/DapperLib/Dapper). DapperX lets you define entities and repository interfaces with attributes and get fully-typed, reflection-free repository implementations generated at build time — no runtime reflection, no change tracking, no dynamic SQL.
+A compile-time, source-generator-powered data access framework for .NET, built on top of [Dapper](https://github.com/DapperLib/Dapper). DapperX lets you define entities and repository interfaces without writing SQL — the source generator handles the rest.
 
 ## Features
 
@@ -24,6 +24,62 @@ dotnet add package Ratana.DapperX
 ```
 
 The `Ratana.DapperX` package brings in the source generator automatically as a build-time analyzer — there's nothing else to install.
+
+## Configuration
+
+Every project using DapperX **must** configure two settings in its `.csproj` file:
+
+### 1. Set the compile-time database provider
+
+Add the `DapperXDatabaseProvider` property to your `<PropertyGroup>`:
+
+```xml
+<PropertyGroup>
+  <DapperXDatabaseProvider>SqlServer</DapperXDatabaseProvider>
+</PropertyGroup>
+```
+
+**Valid values:** `SqlServer` (default), `PostgreSql`, `MySql`, `Sqlite`
+
+This property determines which SQL dialect the generator produces **at compile time**. Switching providers requires a rebuild.
+
+### 2. Reference the generator correctly
+
+Add the `DapperX.Generator` project reference with analyzer settings:
+
+```xml
+<ItemGroup>
+  <ProjectReference Include="path/to/DapperX.csproj" />
+  <ProjectReference Include="path/to/DapperX.Generator.csproj" 
+                    OutputItemType="Analyzer" 
+                    ReferenceOutputAssembly="false" />
+</ItemGroup>
+```
+
+**Why these settings?**
+- `OutputItemType="Analyzer"` — tells MSBuild to load the generator only as a Roslyn analyzer at compile time
+- `ReferenceOutputAssembly="false"` — prevents the generator assembly from being included in your app's output, keeping dependencies minimal
+
+### Example project file
+
+```xml
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <DapperXDatabaseProvider>SqlServer</DapperXDatabaseProvider>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\DapperX\DapperX.csproj" />
+    <ProjectReference Include="..\..\src\DapperX.Generator\DapperX.Generator.csproj" 
+                      OutputItemType="Analyzer" 
+                      ReferenceOutputAssembly="false" />
+  </ItemGroup>
+</Project>
+```
+
+**Note:** If using the NuGet package `Ratana.DapperX`, these settings are configured automatically via a `.targets` file and do not require manual setup.
 
 ## Quickstart
 
@@ -96,7 +152,7 @@ public class CatalogService(ICatalogProductRepository products)
 
 ## Sample application
 
-A runnable ASP.NET Core minimal API demonstrating CRUD, derived queries, `IQuery`, global filters, soft delete, multi-tenancy, auditing, secondary tables, batch/graph insert, locking, and paging is available at [`samples/DapperX.SampleApp`](samples/DapperX.SampleApp), including a Docker Compose setup and an in-memory SQLite mode that needs no external database.
+A runnable ASP.NET Core minimal API demonstrating CRUD, derived queries, `IQuery`, global filters, soft delete, multi-tenancy, auditing, secondary tables, batch/graph insert, locking, and paging in [`samples/DapperX.SampleApp`](samples/DapperX.SampleApp).
 
 ## License
 
