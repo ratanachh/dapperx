@@ -4,9 +4,48 @@
 
 ```bash
 dotnet add package Ratana.DapperX
+dotnet add package Ratana.DapperX.Generator
 ```
 
-`Ratana.DapperX` brings in the source generator automatically as a build-time analyzer (`Ratana.DapperX.Generator`) — there's nothing else to install. DapperX targets `net10.0` and requires no runtime dependency beyond [Dapper](https://github.com/DapperLib/Dapper) itself.
+DapperX targets `net10.0` and requires no runtime dependency beyond [Dapper](https://github.com/DapperLib/Dapper) itself.
+
+## Configuration
+
+Every project using DapperX **must** configure one setting in its `.csproj` file:
+
+### 1. Set the compile-time database provider
+
+Add the `DapperXDatabaseProvider` property to your `<PropertyGroup>`:
+
+```xml
+<PropertyGroup>
+  <DapperXDatabaseProvider>SqlServer</DapperXDatabaseProvider>
+</PropertyGroup>
+```
+
+**Valid values:** `SqlServer` (default), `PostgreSql`, `MySql`, `Sqlite`
+
+This property determines which SQL dialect the generator produces **at compile time**. Switching providers requires a rebuild.
+
+### Example project file
+
+```xml
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    ...
+    <DapperXDatabaseProvider>SqlServer</DapperXDatabaseProvider>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="Ratana.DapperX" Version="0.1.1" />
+    <PackageReference Include="Ratana.DapperX.Generator" Version="0.1.1">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+</Project>
+```
+
+**Note:** If using the NuGet package `Ratana.DapperX`, these settings are configured automatically via a `.targets` file and do not require manual setup.
 
 ## 1. Define an entity
 
