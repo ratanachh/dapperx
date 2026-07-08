@@ -26,7 +26,7 @@ dotnet add package Ratana.DapperX.Generator
 
 ## Configuration
 
-Every project using DapperX **must** configure two settings in its `.csproj` file:
+Every project using DapperX **must** configure one setting in its `.csproj` file:
 
 ### 1. Set the compile-time database provider
 
@@ -52,6 +52,10 @@ This property determines which SQL dialect the generator produces **at compile t
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="Ratana.DapperX" Version="0.1.1" />
+    <PackageReference Include="Ratana.DapperX.Generator" Version="0.1.1">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
   </ItemGroup>
 </Project>
 ```
