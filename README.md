@@ -23,7 +23,7 @@ A compile-time, source-generator-powered data access framework for .NET, built o
 dotnet add package Ratana.DapperX
 ```
 
-The `Ratana.DapperX` package brings in the source generator automatically as a build-time analyzer — there's nothing else to install.
+The `Ratana.DapperX` package brings in the source generator automatically as a build-time analyzer.
 
 ## Configuration
 
@@ -43,38 +43,16 @@ Add the `DapperXDatabaseProvider` property to your `<PropertyGroup>`:
 
 This property determines which SQL dialect the generator produces **at compile time**. Switching providers requires a rebuild.
 
-### 2. Reference the generator correctly
-
-Add the `DapperX.Generator` project reference with analyzer settings:
-
-```xml
-<ItemGroup>
-  <ProjectReference Include="path/to/DapperX.csproj" />
-  <ProjectReference Include="path/to/DapperX.Generator.csproj" 
-                    OutputItemType="Analyzer" 
-                    ReferenceOutputAssembly="false" />
-</ItemGroup>
-```
-
-**Why these settings?**
-- `OutputItemType="Analyzer"` — tells MSBuild to load the generator only as a Roslyn analyzer at compile time
-- `ReferenceOutputAssembly="false"` — prevents the generator assembly from being included in your app's output, keeping dependencies minimal
-
 ### Example project file
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
+    ...
     <DapperXDatabaseProvider>SqlServer</DapperXDatabaseProvider>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\DapperX\DapperX.csproj" />
-    <ProjectReference Include="..\..\src\DapperX.Generator\DapperX.Generator.csproj" 
-                      OutputItemType="Analyzer" 
-                      ReferenceOutputAssembly="false" />
+    <ProjectReference Include="Ratana.DapperX" Version="0.1.1" />
   </ItemGroup>
 </Project>
 ```
