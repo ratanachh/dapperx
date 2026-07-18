@@ -8,7 +8,7 @@ using DapperX.Abstractions.Configuration;
 using DapperX.Abstractions.Logging;
 
 /// <summary>
-/// Runtime configuration for DapperX, registered via <c>AddDapperXRepositories</c> and injected into
+/// Runtime configuration for DapperX, registered via <c>AddDapperX</c> and injected into
 /// generated repositories. Controls batch chunking, logging, and <c>[GlobalFilter]</c> activation.
 /// </summary>
 public sealed class DapperXOptions : IDapperXOptions

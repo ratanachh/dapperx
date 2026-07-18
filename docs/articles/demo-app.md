@@ -18,10 +18,13 @@ dotnet run --project samples/DapperX.SampleApp/DapperX.SampleApp.csproj
 The connection string in `appsettings.json` targets `localhost:14333` (mapped in `docker-compose.yml` to
 avoid clashing with a local SQL Server on 1433). Open `GET /` for a route index.
 
-**No Docker — in-memory SQLite:**
+**Provider configuration:**
 
-Set `DapperX:DatabaseProvider` to `Sqlite` in `appsettings.json` or as an environment variable. The app uses
-an in-memory SQLite database and recreates its schema on startup.
+This sample app is compiled for SQL Server via `DapperXDatabaseProvider` in
+`samples/DapperX.SampleApp/DapperX.SampleApp.csproj`. The generator emits
+`DapperX.Generated.DapperXConnectionFactory`, which the app uses for the provider-specific connection and
+`ProviderName`. Switching to PostgreSql, MySql, or Sqlite means changing the compile-time property and
+supplying the matching connection string entry.
 
 ## Smoke test
 
@@ -45,7 +48,7 @@ writes full responses to `responses.txt`. Override the target with
 | `/demo/orders` | Lifecycle hooks, formula, generated column, relationships |
 | `/demo/org` | Department / employee data (`LazyMap` keyed relations) |
 | `/demo/graph` | `InsertGraphAsync` with `LazyCollection.Set` |
-| `/demo/sqlite` | Provider switch notes |
+| `/demo/provider` | Compile-time provider notes |
 
 CPQL and the `[Immutable]` product variant are covered in `tests/DapperX.Tests` until generator edge cases are
 resolved for those shapes in the sample assembly — see [CPQL](features/cpql.md) for examples pulled from

@@ -107,6 +107,9 @@ public sealed class DapperXSourceGenerator : IIncrementalGenerator
                 var allModels = models.Values.ToList();
                 var diSource = DiExtensionEmitter.Emit(allModels, interfaceByEntity);
                 spc.AddSource("DapperXServiceCollectionExtensions.g.cs", diSource);
+
+                var connectionFactorySource = ConnectionFactoryEmitter.Emit(provider);
+                spc.AddSource("DapperXConnectionFactory.g.cs", connectionFactorySource);
             }
         });
     }

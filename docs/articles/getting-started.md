@@ -111,16 +111,21 @@ See [Derived Queries](features/derived-queries.md).
 
 ## 3. Register DapperX
 
-Call `AddDapperXRepositories` with a connection factory. This extension method — along with the
+Call `AddDapperX` with configuration or a connection factory. This extension method — along with the
 `{Name}RepositoryImpl` class backing every `[Repository]` interface — is emitted by the generator per
 consuming project, so every repository interface it finds is wired up for DI automatically:
 
+The generator also emits `DapperX.Generated.DapperXConnectionFactory`, which creates and opens the
+provider-specific `IDbConnection` selected by `DapperXDatabaseProvider`.
+
 ```csharp
 using DapperX.Runtime.Configuration;
+using DapperX.Generated;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDapperXRepositories(_ => CreateOpenConnection(connectionString));
+builder.Services.AddDapperX(builder.Configuration.GetConnectionString); // uses provider-default connection-string name
+// or: builder.Services.AddDapperX(_ => DapperXConnectionFactory.CreateOpenConnection(connectionString));
 
 var app = builder.Build();
 ```

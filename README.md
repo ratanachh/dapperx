@@ -116,7 +116,7 @@ using DapperX.Runtime.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDapperXRepositories(_ => CreateOpenConnection(connectionString));
+builder.Services.AddDapperX(builder.Configuration.GetConnectionString);
 
 var app = builder.Build();
 ```

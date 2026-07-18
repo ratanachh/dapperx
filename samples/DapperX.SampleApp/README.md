@@ -23,9 +23,9 @@ Optional: `BASE_URL=http://localhost:5000 RESPONSES_FILE=/tmp/responses.txt ./sa
 
 The script curls every `/demo/*` route in dependency order, asserts HTTP status codes, and writes full responses to `responses.txt`.
 
-## SQLite (no Docker)
+## Provider configuration
 
-Set `DapperX:DatabaseProvider` to `Sqlite` in `appsettings.json` or environment. The app uses in-memory SQLite and recreates schema on startup.
+This sample app is wired for SQL Server through the compile-time `DapperXDatabaseProvider` property in `samples/DapperX.SampleApp/DapperX.SampleApp.csproj`. `builder.Services.AddDapperX(builder.Configuration.GetConnectionString)` uses the generated provider-aware connection factory internally. Switching to PostgreSql, MySql, or Sqlite means changing the compile-time property and supplying the matching connection string.
 
 ## Feature map
 
@@ -37,6 +37,6 @@ Set `DapperX:DatabaseProvider` to `Sqlite` in `appsettings.json` or environment.
 | `/demo/orders` | Lifecycle hooks, formula, generated column, relationships |
 | `/demo/org` | Department / employee data |
 | `/demo/graph` | `InsertGraphAsync` with `LazyCollection.Set` |
-| `/demo/sqlite` | Provider switch notes |
+| `/demo/provider` | Compile-time provider notes and generated connection helper |
 
 CPQL and `[Immutable]` product variant are covered in `tests/DapperX.Tests` until generator edge cases are resolved for those shapes in the sample assembly.

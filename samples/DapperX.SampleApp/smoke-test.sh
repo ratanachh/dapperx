@@ -110,7 +110,7 @@ fi
 
 # --- 1. Root ---
 assert_status "GET /" GET "${BASE_URL}/" 200 || true
-assert_status "GET /demo/sqlite" GET "${BASE_URL}/demo/sqlite" 200 || true
+assert_status "GET /demo/provider" GET "${BASE_URL}/demo/provider" 200 || true
 
 # --- 2. Catalog seed ---
 json_post_capture "POST /demo/catalog (transformer path)" "${BASE_URL}/demo/catalog" \

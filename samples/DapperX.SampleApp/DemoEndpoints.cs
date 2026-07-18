@@ -4,6 +4,7 @@ using DapperX.Abstractions.Configuration;
 using DapperX.Abstractions.Paging;
 using DapperX.Abstractions.Sorting;
 using DapperX.Core.Enums;
+using DapperX.Generated;
 using DapperX.SampleApp.Entities;
 using DapperX.SampleApp.Infrastructure;
 using DapperX.SampleApp.Repositories;
@@ -12,16 +13,16 @@ namespace DapperX.SampleApp;
 
 internal static class DemoEndpoints
 {
-    public static void MapDemoEndpoints(this WebApplication app, SampleDatabaseHost dbHost)
+    public static void MapDemoEndpoints(this WebApplication app)
     {
         app.MapGet("/", () => Results.Ok(new
         {
             message = "DapperX Sample Application",
-            provider = dbHost.Provider,
-            database = dbHost.Provider.Equals("Sqlite", StringComparison.OrdinalIgnoreCase)
+            provider = DapperXConnectionFactory.ProviderName,
+            database = DapperXConnectionFactory.ProviderName.Equals("Sqlite", StringComparison.OrdinalIgnoreCase)
                 ? "in-memory SQLite (no Docker)"
-                : "Docker Compose SQL Server (localhost:14333)",
-            sections = new[] { "catalog", "users", "orders", "org", "graph", "sqlite" },
+                : $"{DapperXConnectionFactory.ProviderName} connection from appsettings",
+            sections = new[] { "catalog", "users", "orders", "org", "graph", "provider" },
         }));
 
         MapCatalogEndpoints(app);
@@ -30,7 +31,7 @@ internal static class DemoEndpoints
         MapOrderEndpoints(app);
         MapOrgEndpoints(app);
         MapGraphEndpoints(app);
-        MapSqliteNote(app, dbHost);
+        MapProviderNote(app);
     }
 
     private static void MapCatalogEndpoints(WebApplication app)
@@ -252,15 +253,15 @@ internal static class DemoEndpoints
         });
     }
 
-    private static void MapSqliteNote(WebApplication app, SampleDatabaseHost dbHost)
+    private static void MapProviderNote(WebApplication app)
     {
-        app.MapGet("/demo/sqlite", () => Results.Ok(new
+        app.MapGet("/demo/provider", () => Results.Ok(new
         {
-            message = "Default: Docker Compose SQL Server (`docker compose up -d` in samples/DapperX.SampleApp). Set DapperX:DatabaseProvider to Sqlite for in-memory SQLite without Docker.",
-            currentProvider = dbHost.Provider,
-            connectionSource = dbHost.Provider.Equals("Sqlite", StringComparison.OrdinalIgnoreCase)
+            message = "This sample app uses the compile-time `DapperXDatabaseProvider` setting in the csproj and a generated `DapperXConnectionFactory`.",
+            currentProvider = DapperXConnectionFactory.ProviderName,
+            connectionSource = DapperXConnectionFactory.ProviderName.Equals("Sqlite", StringComparison.OrdinalIgnoreCase)
                 ? "in-memory"
-                : "docker-compose",
+                : "appsettings",
         }));
     }
 

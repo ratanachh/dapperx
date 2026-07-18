@@ -7,33 +7,28 @@ strategy, under `DapperX.Provider.{SqlServer,PostgreSql,MySql,Sqlite}`:
   (`SqlBulkCopy`).
 - **PostgreSQL** — `PostgreSqlDialect`; bulk inserts via `PostgreSqlBulkExecutor` (`COPY`).
 - **MySQL** — `MySqlDialect`; batched multi-row inserts via `MySqlBatchExecutor`.
-- **SQLite** — `SqliteDialect`, used by the sample app's no-Docker mode.
+- **SQLite** — `SqliteDialect`, used in SQLite-backed projects and tests.
 
 Provider selection is a **runtime** concern — the same compiled entities/repositories work against any
-supported provider; only the connection you hand to `AddDapperXRepositories` (and, for a handful of
+supported provider; only the connection you hand to `AddDapperX` (and, for a handful of
 provider-aware bulk-insert code paths, the resolved `IDatabaseProvider`) determines which dialect executes.
 There's no separate build per provider.
 
 ## Choosing a provider
 
-The sample app's `SampleDatabaseHost` shows the common pattern: read a configuration flag, and create the
-matching `IDbConnection`:
+Use `AddDapperX(builder.Configuration.GetConnectionString)` to let the generated DI extension resolve the default connection-string
+name for the compile-time provider (`SqlServer`, `PostgreSql`, `MySql`, or `Sqlite`), mapped to `SqlServer`, `PostgreSql`, `MySql`, and `Sqlite` respectively, with fallback to `Default`.
 
 ```csharp
-public IDbConnection CreateConnection() =>
-    Provider.Equals("Sqlite", StringComparison.OrdinalIgnoreCase)
-        ? new SqliteConnection(ConnectionString)
-        : new SqlConnection(ConnectionString);
-```
-
-```csharp
-builder.Services.AddDapperXRepositories(_ => CreateOpenConnection(connectionString));
+builder.Services.AddDapperX(builder.Configuration.GetConnectionString);
 ```
 
 Whatever `IDbConnection` implementation you open determines the provider DapperX talks to underneath
 `IRepository<T, TId>`/`IQuery<T>` — swapping providers (e.g. SQL Server in production, SQLite in local
-dev/tests) is a matter of swapping the connection factory and, for the sample app,
-`DapperX:DatabaseProvider`/`ConnectionStrings:Sqlite`/`ConnectionStrings:Default` in `appsettings.json`.
+dev/tests) is a matter of swapping the connection factory and the runtime connection string settings.
+The sample app in this repo is compiled for SQL Server via `DapperXDatabaseProvider`, and the generator
+emits `DapperX.Generated.DapperXConnectionFactory` so the app can create the right provider-specific
+connection without hand-written boilerplate.
 
 ## Dialect differences DapperX handles for you
 
