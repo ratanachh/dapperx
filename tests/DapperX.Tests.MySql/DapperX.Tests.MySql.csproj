@@ -2,5 +2,8 @@
   <PropertyGroup>
     <DapperXDatabaseProvider>MySql</DapperXDatabaseProvider>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="MySqlConnector" Version="2.4.0" />
+  </ItemGroup>
   <Import Project="..\DapperX.Tests.ProviderTestProject.props" />
 </Project>

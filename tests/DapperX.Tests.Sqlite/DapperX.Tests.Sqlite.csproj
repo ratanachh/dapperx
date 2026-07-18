@@ -2,6 +2,9 @@
   <PropertyGroup>
     <DapperXDatabaseProvider>Sqlite</DapperXDatabaseProvider>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="9.0.0" />
+  </ItemGroup>
   <Import Project="..\DapperX.Tests.ProviderTestProject.props" />
   <ItemGroup>
     <Compile Remove="Fixtures\SqliteCatalogEntity.cs" />

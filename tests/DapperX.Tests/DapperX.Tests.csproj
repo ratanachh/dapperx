@@ -21,6 +21,7 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.14.0" />
     <PackageReference Include="Microsoft.Data.Sqlite" Version="9.0.0" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="6.0.1" Condition="'$(DapperXDatabaseProvider)' == 'SqlServer'" />
     <!-- Microsoft.Data.Sqlite 9.0.0 pulls SQLitePCLRaw.bundle_e_sqlite3 2.1.10, whose native e_sqlite3
          binary has a known high-severity vulnerability (GHSA-2m69-gcr7-jv3q). 3.0+ replaces the vulnerable
          SQLitePCLRaw.lib.e_sqlite3 dependency with the actively maintained SourceGear.sqlite3 package. -->
