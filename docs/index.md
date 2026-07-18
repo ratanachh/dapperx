@@ -11,6 +11,7 @@ no runtime reflection, no change tracking, no dynamic SQL.
 
 ```bash
 dotnet add package Ratana.DapperX
+dotnet add package Ratana.DapperX.Generator
 ```
 
 ## Features
@@ -27,7 +28,19 @@ dotnet add package Ratana.DapperX
 
 ## Quickstart
 
-Define an entity:
+### 1. Set the compile-time provider
+
+Add the `DapperXDatabaseProvider` property to your `.csproj`:
+
+```xml
+<PropertyGroup>
+  <DapperXDatabaseProvider>SqlServer</DapperXDatabaseProvider>
+</PropertyGroup>
+```
+
+Valid values: `SqlServer` (default), `PostgreSql`, `MySql`, `Sqlite`
+
+### 2. Define an entity
 
 ```csharp
 using DapperX.Core.Attributes;
@@ -58,7 +71,7 @@ public class CatalogProduct
 }
 ```
 
-Define a repository interface — DapperX generates the implementation at compile time:
+### 3. Define a repository interface
 
 ```csharp
 using DapperX.Abstractions.Repositories;
@@ -72,7 +85,7 @@ public interface ICatalogProductRepository : IRepository<CatalogProduct, int>
 }
 ```
 
-Register DapperX and hand it a connection factory — every `[Repository]` interface is wired up for you:
+### 4. Register DapperX
 
 ```csharp
 using DapperX.Runtime.Configuration;
@@ -84,7 +97,10 @@ builder.Services.AddDapperX(builder.Configuration.GetConnectionString);
 var app = builder.Build();
 ```
 
-Then inject and use the generated repository like any other service:
+The generator also emits `DapperXConnectionFactory`, which creates the provider-specific `IDbConnection`
+for the compile-time `DapperXDatabaseProvider` value.
+
+### 5. Use the generated repository
 
 ```csharp
 public class CatalogService(ICatalogProductRepository products)
@@ -96,7 +112,7 @@ public class CatalogService(ICatalogProductRepository products)
 
 ## Where to next
 
-- **[Getting Started](articles/getting-started.md)** — installation and the quickstart above, with a walkthrough of what the generator produces
+- **[Getting Started](articles/getting-started.md)** — full setup and quickstart walkthrough
 - **[Feature Guides](articles/features/index.md)** — one page per feature area: relations, batch/graph operations, derived queries, CPQL, paging & sorting, soft delete/multi-tenancy/auditing, lifecycle hooks, and providers
 - **[Demo App Walkthrough](articles/demo-app.md)** — a runnable ASP.NET Core minimal API exercising nearly every feature
 - **[API Reference](api/index.md)** — generated reference for the public types in `DapperX`

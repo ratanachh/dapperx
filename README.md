@@ -64,7 +64,19 @@ This property determines which SQL dialect the generator produces **at compile t
 
 ## Quickstart
 
-Define an entity:
+### 1. Set the compile-time provider
+
+Add the `DapperXDatabaseProvider` property to your `.csproj`:
+
+```xml
+<PropertyGroup>
+  <DapperXDatabaseProvider>SqlServer</DapperXDatabaseProvider>
+</PropertyGroup>
+```
+
+Valid values: `SqlServer` (default), `PostgreSql`, `MySql`, `Sqlite`
+
+### 2. Define an entity
 
 ```csharp
 using DapperX.Core.Attributes;
@@ -95,7 +107,7 @@ public class CatalogProduct
 }
 ```
 
-Define a repository interface — DapperX generates the implementation at compile time:
+### 3. Define a repository interface
 
 ```csharp
 using DapperX.Abstractions.Repositories;
@@ -109,7 +121,7 @@ public interface ICatalogProductRepository : IRepository<CatalogProduct, int>
 }
 ```
 
-Register DapperX and hand it a connection factory — every `[Repository]` interface is wired up for you:
+### 4. Register DapperX
 
 ```csharp
 using DapperX.Runtime.Configuration;
@@ -121,7 +133,10 @@ builder.Services.AddDapperX(builder.Configuration.GetConnectionString);
 var app = builder.Build();
 ```
 
-Then inject and use the generated repository like any other service:
+The generator also emits `DapperXConnectionFactory`, which creates the provider-specific `IDbConnection`
+for the compile-time `DapperXDatabaseProvider` value.
+
+### 5. Use the generated repository
 
 ```csharp
 public class CatalogService(ICatalogProductRepository products)
