@@ -1,22 +1,15 @@
-using DapperX.Generator.Builders;
-using DapperX.Generator.Emitters;
-using DapperX.Generator.Generators;
-using DapperX.Generator.Models;
-using DapperX.Generator.Utils;
-using DapperX.Generator.Validation;
-
 namespace DapperX.Generator;
 
 using System.Collections.Immutable;
 using System.Threading;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Generator.Builders;
-using Generator.Emitters;
-using Generator.Models;
-using Generator.Utils;
-using Generator.Generators;
-using Generator.Validation;
+using Builders;
+using Emitters;
+using Models;
+using Utils;
+using Generators;
+using Validation;
 
 [Generator]
 public sealed class DapperXSourceGenerator : IIncrementalGenerator
@@ -54,6 +47,7 @@ public sealed class DapperXSourceGenerator : IIncrementalGenerator
         {
             var (((compilation, entityFqns), interfaces), msBuildProvider) = source;
             var provider = CompileTimeDatabaseProvider.Resolve(compilation, msBuildProvider);
+
             var interfaceByEntity = BuildInterfaceLookup(compilation, interfaces, spc);
 
             var models = new Dictionary<string, EntityModel>(StringComparer.Ordinal);

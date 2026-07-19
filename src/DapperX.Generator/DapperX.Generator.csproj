@@ -20,6 +20,7 @@
          IncludeSymbols/snupkg settings from src/Directory.Build.props have nothing to
          package and fail with NU5017; this project doesn't ship a symbol package. -->
     <IncludeSymbols>false</IncludeSymbols>
+    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
   </PropertyGroup>
 
   <ItemGroup>
