@@ -30,6 +30,8 @@
 
   <ItemGroup>
     <None Include="$(OutputPath)$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+    <None Include="Ratana.DapperX.Generator.props" Pack="true" PackagePath="build\Ratana.DapperX.Generator.props" />
+    <None Include="Ratana.DapperX.Generator.props" Pack="true" PackagePath="buildTransitive\Ratana.DapperX.Generator.props" />
   </ItemGroup>
 
   <ItemGroup>

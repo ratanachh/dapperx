@@ -60,7 +60,7 @@ This property determines which SQL dialect the generator produces **at compile t
 </Project>
 ```
 
-**Note:** If using the NuGet package `Ratana.DapperX`, these settings are configured automatically via a `.targets` file and do not require manual setup.
+**Note:** The `Ratana.DapperX.Generator` package ships MSBuild props that make `DapperXDatabaseProvider` visible to the source generator (`CompilerVisibleProperty`). You only need to set the property itself in your `.csproj`.
 
 ## Quickstart
 

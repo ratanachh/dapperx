@@ -45,8 +45,8 @@ public sealed class DapperXSourceGenerator : IIncrementalGenerator
 
         context.RegisterSourceOutput(compilationEntitiesInterfaces, static (spc, source) =>
         {
-            var (((compilation, entityFqns), interfaces), msBuildProvider) = source;
-            var provider = CompileTimeDatabaseProvider.Resolve(compilation, msBuildProvider);
+            var (((compilation, entityFqns), interfaces), providerFromBuild) = source;
+            var provider = CompileTimeDatabaseProvider.Resolve(compilation, providerFromBuild);
 
             var interfaceByEntity = BuildInterfaceLookup(compilation, interfaces, spc);
 
