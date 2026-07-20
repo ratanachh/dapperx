@@ -1,5 +1,7 @@
 <Solution>
   <Folder Name="/samples/">
+    <Project Path="samples/DapperX.MySql.SampleApp/DapperX.MySql.SampleApp.csproj" />
+    <Project Path="samples/DapperX.PostgreSql.SampleApp/DapperX.PostgreSql.SampleApp.csproj" />
     <Project Path="samples/DapperX.SampleApp/DapperX.SampleApp.csproj" />
   </Folder>
   <Folder Name="/src/">
