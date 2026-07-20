@@ -24,13 +24,11 @@ dotnet add package Ratana.DapperX
 dotnet add package Ratana.DapperX.Generator
 ```
 
-## Configuration
+## Quickstart
 
-Every project using DapperX **must** configure one setting in its `.csproj` file:
+### 1. Set the compile-time provider
 
-### 1. Set the compile-time database provider
-
-Add the `DapperXDatabaseProvider` property to your `<PropertyGroup>`:
+Add the `DapperXDatabaseProvider` property to your `.csproj`:
 
 ```xml
 <PropertyGroup>
@@ -38,7 +36,7 @@ Add the `DapperXDatabaseProvider` property to your `<PropertyGroup>`:
 </PropertyGroup>
 ```
 
-**Valid values:** `SqlServer` (default), `PostgreSql`, `MySql`, `Sqlite`
+Valid values: `SqlServer` (default), `PostgreSql`, `MySql`, `Sqlite`
 
 This property determines which SQL dialect the generator produces **at compile time**. Switching providers requires a rebuild.
 
@@ -59,20 +57,6 @@ This property determines which SQL dialect the generator produces **at compile t
   </ItemGroup>
 </Project>
 ```
-
-## Quickstart
-
-### 1. Set the compile-time provider
-
-Add the `DapperXDatabaseProvider` property to your `.csproj`:
-
-```xml
-<PropertyGroup>
-  <DapperXDatabaseProvider>SqlServer</DapperXDatabaseProvider>
-</PropertyGroup>
-```
-
-Valid values: `SqlServer` (default), `PostgreSql`, `MySql`, `Sqlite`
 
 ### 2. Define an entity
 
