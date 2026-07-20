@@ -60,10 +60,6 @@ This property determines which SQL dialect the generator produces **at compile t
 </Project>
 ```
 
-**Note:** Do **not** add `<CompilerVisibleProperty Include="DapperXDatabaseProvider" />` yourself.
-`Ratana.DapperX.Generator` ships `build/Ratana.DapperX.Generator.props` (and `buildTransitive/`) that
-registers that item automatically so the source generator can read `DapperXDatabaseProvider`. Setting
-the property in a `<PropertyGroup>` is enough.
 ## Quickstart
 
 ### 1. Set the compile-time provider
