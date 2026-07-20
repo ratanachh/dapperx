@@ -2,7 +2,8 @@
   <Folder Name="/samples/">
     <Project Path="samples/DapperX.MySql.SampleApp/DapperX.MySql.SampleApp.csproj" />
     <Project Path="samples/DapperX.PostgreSql.SampleApp/DapperX.PostgreSql.SampleApp.csproj" />
-    <Project Path="samples/DapperX.SampleApp/DapperX.SampleApp.csproj" />
+    <Project Path="samples/DapperX.Sqlite.SampleApp/DapperX.Sqlite.SampleApp.csproj" />
+    <Project Path="samples/DapperX.SqlServer.SampleApp/DapperX.SqlServer.SampleApp.csproj" />
   </Folder>
   <Folder Name="/src/">
     <Project Path="src/DapperX.Generator/DapperX.Generator.csproj" />

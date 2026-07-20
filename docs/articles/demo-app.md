@@ -1,18 +1,19 @@
 # Demo App Walkthrough
 
-[`samples/DapperX.SampleApp`](https://github.com/ratanachh/dapperx/tree/main/samples/DapperX.SampleApp) is a
-runnable ASP.NET Core minimal API that exercises nearly every DapperX feature end-to-end: CRUD, derived
+[`samples/DapperX.SqlServer.SampleApp`](https://github.com/ratanachh/dapperx/tree/main/samples/DapperX.SqlServer.SampleApp) is a
+runnable ASP.NET Core minimal API (SQL Server) that exercises nearly every DapperX feature end-to-end: CRUD, derived
 queries, the fluent `IQuery<T>` API, global filters, soft delete, multi-tenancy, auditing, secondary tables,
-batch/graph insert, row locking, and paging.
+batch/graph insert, row locking, and paging. Lighter provider starters also live under
+`samples/DapperX.{PostgreSql,MySql,Sqlite}.SampleApp`.
 
 ## Running it
 
 **Default — Docker Compose SQL Server:**
 
 ```bash
-docker compose -f samples/DapperX.SampleApp/docker-compose.yml up -d
+docker compose -f samples/DapperX.SqlServer.SampleApp/docker-compose.yml up -d
 # wait until `docker compose ps` shows the container healthy
-dotnet run --project samples/DapperX.SampleApp/DapperX.SampleApp.csproj
+dotnet run --project samples/DapperX.SqlServer.SampleApp/DapperX.SqlServer.SampleApp.csproj
 ```
 
 The connection string in `appsettings.json` targets `localhost:14333` (mapped in `docker-compose.yml` to
@@ -21,22 +22,22 @@ avoid clashing with a local SQL Server on 1433). Open `GET /` for a route index.
 **Provider configuration:**
 
 This sample app is compiled for SQL Server via `DapperXDatabaseProvider` in
-`samples/DapperX.SampleApp/DapperX.SampleApp.csproj`. The generator emits
+`samples/DapperX.SqlServer.SampleApp/DapperX.SqlServer.SampleApp.csproj`. The generator emits
 `DapperX.Generated.DapperXConnectionFactory`, which the app uses for the provider-specific connection and
-`ProviderName`. Switching to PostgreSql, MySql, or Sqlite means changing the compile-time property and
-supplying the matching connection string entry.
+`ProviderName`. Use the dedicated `samples/DapperX.{PostgreSql,MySql,Sqlite}.SampleApp` projects for other
+providers.
 
 ## Smoke test
 
 With the app running at `http://localhost:5000`:
 
 ```bash
-./samples/DapperX.SampleApp/smoke-test.sh
+./samples/DapperX.SqlServer.SampleApp/smoke-test.sh
 ```
 
 Requires `curl` and `jq`. It calls every `/demo/*` route in dependency order, asserts HTTP status codes, and
 writes full responses to `responses.txt`. Override the target with
-`BASE_URL=http://localhost:5000 RESPONSES_FILE=/tmp/responses.txt ./samples/DapperX.SampleApp/smoke-test.sh`.
+`BASE_URL=http://localhost:5000 RESPONSES_FILE=/tmp/responses.txt ./samples/DapperX.SqlServer.SampleApp/smoke-test.sh`.
 
 ## Feature map
 

@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <DapperXDatabaseProvider>SqlServer</DapperXDatabaseProvider>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\DapperX\DapperX.csproj" />
+    <ProjectReference Include="..\..\src\DapperX.Generator\DapperX.Generator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="6.0.1" />
+  </ItemGroup>
+</Project>

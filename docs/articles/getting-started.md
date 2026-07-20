@@ -36,8 +36,8 @@ This property determines which SQL dialect the generator produces **at compile t
     <DapperXDatabaseProvider>SqlServer</DapperXDatabaseProvider>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="Ratana.DapperX" Version="0.1.1" />
-    <PackageReference Include="Ratana.DapperX.Generator" Version="0.1.1">
+    <PackageReference Include="Ratana.DapperX" Version="0.1.4" />
+    <PackageReference Include="Ratana.DapperX.Generator" Version="0.1.4">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
@@ -45,8 +45,10 @@ This property determines which SQL dialect the generator produces **at compile t
 </Project>
 ```
 
-**Note:** The `Ratana.DapperX.Generator` package ships MSBuild props that make `DapperXDatabaseProvider` visible to the source generator (`CompilerVisibleProperty`). You only need to set the property itself in your `.csproj`.
-
+**Note:** Do **not** add `<CompilerVisibleProperty Include="DapperXDatabaseProvider" />` yourself.
+`Ratana.DapperX.Generator` ships `build/Ratana.DapperX.Generator.props` (and `buildTransitive/`) that
+registers that item automatically so the source generator can read `DapperXDatabaseProvider`. Setting
+the property in a `<PropertyGroup>` is enough.
 ## 1. Define an entity
 
 Annotate a plain class with `[Entity]` and `[Table]`, mark its primary key with `[Id]`, and mark mapped

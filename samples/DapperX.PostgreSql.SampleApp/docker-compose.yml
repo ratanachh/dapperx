@@ -1,0 +1,18 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: dapperx-sample-postgres
+    environment:
+      POSTGRES_DB: dapperx_sample
+      POSTGRES_USER: dapperx
+      POSTGRES_PASSWORD: "DapperX_Sample_P@ssw0rd"
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./docker/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dapperx -d dapperx_sample"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 10s

@@ -1,0 +1,7 @@
+<Project>
+  <!-- Mirrors build/Ratana.DapperX.Generator.props shipped with the NuGet package.
+       Sample apps reference the generator as an Analyzer ProjectReference, which does
+       not auto-import package build props — so we import them here instead of repeating
+       CompilerVisibleProperty in every sample .csproj. -->
+  <Import Project="..\src\DapperX.Generator\Ratana.DapperX.Generator.props" />
+</Project>

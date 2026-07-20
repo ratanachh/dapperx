@@ -40,6 +40,9 @@ Add the `DapperXDatabaseProvider` property to your `.csproj`:
 
 Valid values: `SqlServer` (default), `PostgreSql`, `MySql`, `Sqlite`
 
+Do **not** add `<CompilerVisibleProperty Include="DapperXDatabaseProvider" />` yourself —
+`Ratana.DapperX.Generator` registers it via its shipped MSBuild props.
+
 ### 2. Define an entity
 
 ```csharp

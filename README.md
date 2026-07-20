@@ -51,8 +51,8 @@ This property determines which SQL dialect the generator produces **at compile t
     <DapperXDatabaseProvider>SqlServer</DapperXDatabaseProvider>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="Ratana.DapperX" Version="0.1.1" />
-    <PackageReference Include="Ratana.DapperX.Generator" Version="0.1.1">
+    <PackageReference Include="Ratana.DapperX" Version="0.1.4" />
+    <PackageReference Include="Ratana.DapperX.Generator" Version="0.1.4">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
@@ -60,8 +60,10 @@ This property determines which SQL dialect the generator produces **at compile t
 </Project>
 ```
 
-**Note:** The `Ratana.DapperX.Generator` package ships MSBuild props that make `DapperXDatabaseProvider` visible to the source generator (`CompilerVisibleProperty`). You only need to set the property itself in your `.csproj`.
-
+**Note:** Do **not** add `<CompilerVisibleProperty Include="DapperXDatabaseProvider" />` yourself.
+`Ratana.DapperX.Generator` ships `build/Ratana.DapperX.Generator.props` (and `buildTransitive/`) that
+registers that item automatically so the source generator can read `DapperXDatabaseProvider`. Setting
+the property in a `<PropertyGroup>` is enough.
 ## Quickstart
 
 ### 1. Set the compile-time provider
@@ -146,9 +148,12 @@ public class CatalogService(ICatalogProductRepository products)
 }
 ```
 
-## Sample application
+## Sample applications
 
-A runnable ASP.NET Core minimal API demonstrating CRUD, derived queries, `IQuery`, global filters, soft delete, multi-tenancy, auditing, secondary tables, batch/graph insert, locking, and paging in [`samples/DapperX.SampleApp`](samples/DapperX.SampleApp).
+- [`samples/DapperX.SqlServer.SampleApp`](samples/DapperX.SqlServer.SampleApp) — full-feature demo (CRUD, derived queries, `IQuery`, global filters, soft delete, multi-tenancy, auditing, secondary tables, batch/graph insert, locking, paging)
+- [`samples/DapperX.PostgreSql.SampleApp`](samples/DapperX.PostgreSql.SampleApp) — PostgreSQL starter (`GET /students`)
+- [`samples/DapperX.MySql.SampleApp`](samples/DapperX.MySql.SampleApp) — MySQL starter (`GET /students`)
+- [`samples/DapperX.Sqlite.SampleApp`](samples/DapperX.Sqlite.SampleApp) — SQLite starter (`GET /students`)
 
 ## License
 

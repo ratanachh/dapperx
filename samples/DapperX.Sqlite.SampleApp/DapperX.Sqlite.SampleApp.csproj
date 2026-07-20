@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <DapperXDatabaseProvider>Sqlite</DapperXDatabaseProvider>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\DapperX\DapperX.csproj" />
+    <ProjectReference Include="..\..\src\DapperX.Generator\DapperX.Generator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="9.0.0" />
+    <!-- Microsoft.Data.Sqlite 9.0.0 pulls SQLitePCLRaw.bundle_e_sqlite3 2.1.10, whose native e_sqlite3
+         binary has a known high-severity vulnerability (GHSA-2m69-gcr7-jv3q). 3.0+ replaces the vulnerable
+         SQLitePCLRaw.lib.e_sqlite3 dependency with the actively maintained SourceGear.sqlite3 package. -->
+    <PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="3.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.4" />
+  </ItemGroup>
+
+</Project>

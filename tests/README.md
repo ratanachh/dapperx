@@ -81,4 +81,4 @@ BenchmarkDotNet micro-benchmarks are not run in CI by default.
 
 ## Sample application (EPIC 27)
 
-[`samples/DapperX.SampleApp/README.md`](../samples/DapperX.SampleApp/README.md) — full feature demo app; `docker compose -f samples/DapperX.SampleApp/docker-compose.yml up -d` then `dotnet run --project samples/DapperX.SampleApp/DapperX.SampleApp.csproj`; endpoint smoke test: `./samples/DapperX.SampleApp/smoke-test.sh`
+[`samples/DapperX.SqlServer.SampleApp/README.md`](../samples/DapperX.SqlServer.SampleApp/README.md) — full feature demo app; `docker compose -f samples/DapperX.SqlServer.SampleApp/docker-compose.yml up -d` then `dotnet run --project samples/DapperX.SqlServer.SampleApp/DapperX.SqlServer.SampleApp.csproj`; endpoint smoke test: `./samples/DapperX.SqlServer.SampleApp/smoke-test.sh`

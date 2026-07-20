@@ -26,9 +26,9 @@ builder.Services.AddDapperX(builder.Configuration.GetConnectionString);
 Whatever `IDbConnection` implementation you open determines the provider DapperX talks to underneath
 `IRepository<T, TId>`/`IQuery<T>` — swapping providers (e.g. SQL Server in production, SQLite in local
 dev/tests) is a matter of swapping the connection factory and the runtime connection string settings.
-The sample app in this repo is compiled for SQL Server via `DapperXDatabaseProvider`, and the generator
-emits `DapperX.Generated.DapperXConnectionFactory` so the app can create the right provider-specific
-connection without hand-written boilerplate.
+Each sample under `samples/DapperX.{SqlServer,PostgreSql,MySql,Sqlite}.SampleApp` is compiled for one
+provider via `DapperXDatabaseProvider`. The generator emits `DapperX.Generated.DapperXConnectionFactory`
+so the app can create the right provider-specific connection without hand-written boilerplate.
 
 ## Dialect differences DapperX handles for you
 

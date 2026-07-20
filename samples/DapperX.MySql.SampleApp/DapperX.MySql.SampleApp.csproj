@@ -8,9 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <CompilerVisibleProperty Include="DapperXDatabaseProvider" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\src\DapperX\DapperX.csproj" />
     <ProjectReference Include="..\..\src\DapperX.Generator\DapperX.Generator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
