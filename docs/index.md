@@ -38,6 +38,26 @@ Add the `DapperXDatabaseProvider` property to your `.csproj`:
 </PropertyGroup>
 ```
 
+This property determines which SQL dialect the generator produces **at compile time**. Switching providers requires a rebuild.
+
+### Example project file
+
+```xml
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    ...
+    <DapperXDatabaseProvider>SqlServer</DapperXDatabaseProvider>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Ratana.DapperX" Version="0.1.4" />
+    <PackageReference Include="Ratana.DapperX.Generator" Version="0.1.4">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+</Project>
+```
+
 Valid values: `SqlServer` (default), `PostgreSql`, `MySql`, `Sqlite`
 
 ### 2. Define an entity
